@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+        <PreferenceCategory
+        android:background="#111"
+                android:title="First Category">
+                <CheckBoxPreference
+                        android:title="Checkbox Preference"
+                        android:defaultValue="false"
+                        android:summary="Тут булевая проверка"
+                        android:key="checkboxPref" />
+                <ListPreference
+                        android:title="List Preference"
+                        android:summary="Выбор из списка"
+                        android:key="listPref"
+                        android:defaultValue="digiGreen"
+                        android:entries="@array/listArray"
+                        android:entryValues="@array/listValues" />
+        </PreferenceCategory>
+        <PreferenceCategory
+                android:title="Second Category">
+        <EditTextPreference
+                android:name="EditText Preference"
+                android:summary="Установить пользовательский текст"
+                android:defaultValue="Nothing"
+                android:title="Edit This Text"
+                android:key="editTextPref" />
+        <RingtonePreference
+                android:name="Ringtone Preference"
+                android:summary="Выбор будильника???"
+                android:title="Ringtones"
+                android:key="ringtonePref" />
+        <PreferenceScreen
+                android:key="SecondPrefScreen"
+                android:title="Second PreferenceScreen"
+                android:summary="Вторая вкладка с настройками">
+                <EditTextPreference
+                        android:name="An other EditText Preference"
+                        android:summary="Второй инпут"
+                        android:title="Edit text"
+                        android:key="SecondEditTextPref" />
+        </PreferenceScreen>
+        <Preference
+                android:title="Custom Preference"
+                android:summary="Практически то же самое, что и кнопка"
+                android:key="customPref" />
+        </PreferenceCategory>
+</PreferenceScreen>

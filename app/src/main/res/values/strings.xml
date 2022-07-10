@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Не Придумал</string>
+    <string name="title_activity_main">MAIN_ACTIVITY</string>
+    <string name="set_preferences">Настройки</string>
+</resources>

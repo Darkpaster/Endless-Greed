@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "C:\\PixelLife\\app\\build\\intermediates\\res\\merged\\debug\\layout_preferences.xml.flat",
+        "source": "C:\\PixelLife\\app\\src\\main\\res\\layout\\preferences.xml"
+    },
+    {
+        "merged": "C:\\PixelLife\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_launcher.png.flat",
+        "source": "C:\\PixelLife\\app\\src\\main\\res\\drawable\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\PixelLife\\app\\build\\intermediates\\res\\merged\\debug\\drawable_scaled_art.png.flat",
+        "source": "C:\\PixelLife\\app\\src\\main\\res\\drawable\\scaled_art.png"
+    },
+    {
+        "merged": "C:\\PixelLife\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_play.xml.flat",
+        "source": "C:\\PixelLife\\app\\src\\main\\res\\layout\\activity_play.xml"
+    },
+    {
+        "merged": "C:\\PixelLife\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_game.xml.flat",
+        "source": "C:\\PixelLife\\app\\src\\main\\res\\layout\\activity_game.xml"
+    },
+    {
+        "merged": "C:\\PixelLife\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_main.xml.flat",
+        "source": "C:\\PixelLife\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\PixelLife\\app\\build\\intermediates\\res\\merged\\debug\\drawable_buttons.xml.flat",
+        "source": "C:\\PixelLife\\app\\src\\main\\res\\drawable\\buttons.xml"
+    }
+]
