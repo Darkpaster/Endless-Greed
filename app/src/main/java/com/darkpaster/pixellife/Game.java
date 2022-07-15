@@ -6,10 +6,13 @@ import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import com.darkpaster.myLibrary.textures.Texture;
 import com.darkpaster.myLibrary.utils.Time;
+import com.darkpaster.pixellife.actors.Generator;
 import com.darkpaster.pixellife.actors.hero.Hero;
 import com.darkpaster.pixellife.actors.mobs.Rabbit;
 import com.darkpaster.pixellife.level.TileMap;
 import com.darkpaster.pixellife.ui.Ui;
+
+import static android.graphics.Color.WHITE;
 
 public class Game implements Runnable{
 
@@ -33,16 +36,18 @@ private SurfaceHolder holder;
 private boolean running = false;
 private Paint paint;
 private Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
+private Paint pain = new Paint(Paint.ANTI_ALIAS_FLAG);
 public Hero hero;
 public Rabbit rabbit;
 private TileMap map;
 private boolean first = true;
 private Ui ui;
+private Generator mobs;
 
 public static float x = 0.0f;
 public static float y = 0.0f;
-private float test1 = 0.0f;
-private float test2 = 0.0f;
+private float camX = 0.0f;
+private float camY = 0.0f;
 public static float center1 = 0.0f;
 public static float center2 = 0.0f;
 
@@ -54,18 +59,18 @@ this.holder = holder;
 this.paint = paint;
 mainThread = new Thread(this);
 map = new TileMap(context, paint);
-p.setARGB(255, 100, 100, 230);
-p.setTextSize(35.0f);
-p.setTextAlign(Paint.Align.CENTER);
+
 hero = new Hero(context, "char.png", p);
 Hero.X = GameActivity.x;
-hero.Y = GameActivity.y;
+Hero.Y = GameActivity.y;
 x = Hero.X;
 y = Hero.Y;
-rabbit = new Rabbit(context, "rabbit.png", p);
-rabbit.setXMobs(Texture.TOTAL_SIZE * 4);
-rabbit.setYMobs(Texture.TOTAL_SIZE * 3);
+mobs = new Generator(context, paint, canvas);
+
 ui = new Ui(context);
+
+pain.setTextSize(50.0f);
+pain.setColor(WHITE);
 }
 
 public void start() {
@@ -78,7 +83,8 @@ this.running = run; }
 private void update(){
 if(!GameActivity.stop){
 hero.update();
-rabbit.update();
+mobs.update();
+mobs.spawn();
 }
 }
 
@@ -104,10 +110,10 @@ x = Hero.X;
 y = Hero.Y;
 float dif_x = x2 - x;
 float dif_y = y2 - y;
-GameActivity.cam_x += dif_x;
-GameActivity.cam_y += dif_y;
-test1 = GameActivity.cam_x;
-test2 = GameActivity.cam_y;
+GameActivity.camPosX += dif_x;
+GameActivity.camPosY += dif_y;
+camX = GameActivity.camPosX;
+camY = GameActivity.camPosY;
 } else {
 center1 = GameActivity.center_x;
 center2 = GameActivity.center_y;
@@ -119,32 +125,22 @@ canvas = holder.lockCanvas();
 
 clearCanvas();
 
-camera(test1, test2);
+camera(camX, camY);
 map.render(canvas);
-rabbit.render(canvas, rabbit.getXMobs(), rabbit.getYMobs(), 0, 0, Texture.SPRITE_SIZE, Texture.SPRITE_SIZE, Texture.MULT_SIZE, false);
+//rabbit.render(canvas, rabbit.getXMobs(), rabbit.getYMobs(), 0, 0, Texture.SPRITE_SIZE, Texture.SPRITE_SIZE, Texture.MULT_SIZE, false);
+mobs.render(canvas);
 
-camera(-test1, -test2);
-canvas.drawText("FPS: " + Integer.toString(fps1), 400.0f, 50.0f, paint);
-//canvas.drawText("X_HERO: " + Float.toString(x) + " | " + "Y_HERO: " + Float.toString(y), 0.0f, 300.0f, paint);
+camera(-camX, -camY);
+canvas.drawText("FPS: " + Integer.toString(fps1), 700.0f, 50.0f, pain);
+//canvas.drawText("X_HERO: " + Float.toString(x) + " | " + "Y_HERO: " + Float.toString(y), 200.0f, 300.0f, paint);
 //canvas.drawText("hp: " + Float.toString(Hero.HP), 0.0f, 200.0f, paint);
 //canvas.drawText("x_mob: " + Float.toString(rabbit.getXMobs()) + " | " + "y_mob: " + Float.toString(rabbit.getYMobs()), 0.0f, 350.0f, paint);
 //canvas.drawText("POS_X: " + Float.toString(Hero.hero_posX) + " | " + "POS_Y: " + Float.toString(Hero.hero_posY), 0.0f, 250.0f, paint);
 
 
-
-//try{
-//int ebalY = TileMap.map_walls_y.indexOf(y);
-//float a = TileMap.map_walls_x.get(ebalY);
-//int ebalX = TileMap.map_walls_x.indexOf(a);
-//canvas.drawText("wallX:" + Integer.toString(ebalX) + " | " + "wallY: " + Integer.toString(ebalY), 0.0f, 400.0f, paint);
-//}catch(Exception e){
-//canvas.drawText("result1:" + "ошибка ебаная1", 0.0f, 400.0f, paint);
-//canvas.drawText("result2: " + "ошибка ебаная2", 0.0f, 450.0f, paint);
-//}
-
 //canvas.drawText("sizeX:" + Integer.toString(TileMap.map_walls_x.size()) + " | " + "sizeY: " + Integer.toString(TileMap.map_walls_y.size()), 0.0f, 500.0f, paint);
 
-ui.render(canvas, Hero.HP, Hero.HT);
+ui.render(Hero.HP, Hero.HT, canvas);
 
 hero.render(canvas, center1, center2, 0, 0, Texture.SPRITE_SIZE, Texture.SPRITE_SIZE, Texture.MULT_SIZE, false);
 

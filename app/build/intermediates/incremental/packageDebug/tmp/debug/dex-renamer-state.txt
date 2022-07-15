@@ -1,4 +1,4 @@
-#Tue May 10 17:37:06 EEST 2022
+#Fri Jul 15 18:30:45 EEST 2022
 base.0=C\:\\PixelLife\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 renamed.0=classes.dex
 path.0=classes.dex

@@ -1,7 +1,53 @@
-com/darkpaster/myLibrary/utils/Time.java
- com.darkpaster.myLibrary.utils.Time
 com/darkpaster/myLibrary/SpaceBody.java
  com.darkpaster.myLibrary.SpaceBody
+com/darkpaster/pixellife/level/TileMap.java
+ com.darkpaster.pixellife.level.TileMap
+com/darkpaster/myLibrary/utils/Physic.java
+ com.darkpaster.myLibrary.utils.Physic
+com/darkpaster/pixellife/GameActivity.java
+ com.darkpaster.pixellife.GameActivity
+com/darkpaster/myLibrary/textures/Texture.java
+ com.darkpaster.myLibrary.textures.Texture
+com/darkpaster/pixellife/ui/Text.java
+ com.darkpaster.pixellife.ui.Text
+com/darkpaster/pixellife/ui/Ui.java
+ com.darkpaster.pixellife.ui.Ui
+com/darkpaster/pixellife/MainActivity.java
+ com.darkpaster.pixellife.MainActivity
+com/darkpaster/myLibrary/utils/Random.java
+ com.darkpaster.myLibrary.utils.Random
+com/darkpaster/myLibrary/textures/Sprite.java
+ com.darkpaster.myLibrary.textures.Sprite
+com/darkpaster/myLibrary/utils/Time.java
+ com.darkpaster.myLibrary.utils.Time
+com/darkpaster/pixellife/Game.java
+ com.darkpaster.pixellife.Game
+com/darkpaster/pixellife/actors/mobs/Rabbit.java
+ com.darkpaster.pixellife.actors.mobs.Rabbit
+com/darkpaster/pixellife/actors/Generator.java
+ com.darkpaster.pixellife.actors.Generator
+com/darkpaster/pixellife/Preferences.java
+ com.darkpaster.pixellife.Preferences
+ com.darkpaster.pixellife.Preferences$1
+com/darkpaster/myLibrary/textures/TextureAtlas.java
+ com.darkpaster.myLibrary.textures.TextureAtlas
+com/darkpaster/pixellife/level/TileType.java
+ com.darkpaster.pixellife.level.TileType
+com/darkpaster/pixellife/PlayActivity.java
+ com.darkpaster.pixellife.PlayActivity
+ com.darkpaster.pixellife.PlayActivity$1
+com/darkpaster/pixellife/actors/Actor.java
+ com.darkpaster.pixellife.actors.Actor
+com/darkpaster/pixellife/actors/mobs/MobType.java
+ com.darkpaster.pixellife.actors.mobs.MobType
+com/darkpaster/pixellife/BuildConfig.java
+ com.darkpaster.pixellife.BuildConfig
+com/darkpaster/pixellife/actors/mobs/Mob.java
+ com.darkpaster.pixellife.actors.mobs.Mob
+com/darkpaster/pixellife/actors/hero/Hero.java
+ com.darkpaster.pixellife.actors.hero.Hero
+com/darkpaster/myLibrary/utils/Parse.java
+ com.darkpaster.myLibrary.utils.Parse
 com/darkpaster/pixellife/R.java
  com.darkpaster.pixellife.R
  com.darkpaster.pixellife.R$array
@@ -10,47 +56,3 @@ com/darkpaster/pixellife/R.java
  com.darkpaster.pixellife.R$layout
  com.darkpaster.pixellife.R$string
  com.darkpaster.pixellife.R$style
-com/darkpaster/myLibrary/utils/Parse.java
- com.darkpaster.myLibrary.utils.Parse
-com/darkpaster/pixellife/level/TileMap.java
- com.darkpaster.pixellife.level.TileMap
-com/darkpaster/myLibrary/utils/Physic.java
- com.darkpaster.myLibrary.utils.Physic
-com/darkpaster/myLibrary/textures/Sprite.java
- com.darkpaster.myLibrary.textures.Sprite
-com/darkpaster/pixellife/actors/Generator.java
- com.darkpaster.pixellife.actors.Generator
-com/darkpaster/pixellife/Preferences.java
- com.darkpaster.pixellife.Preferences
- com.darkpaster.pixellife.Preferences$1
-com/darkpaster/myLibrary/utils/Random.java
- com.darkpaster.myLibrary.utils.Random
-com/darkpaster/myLibrary/textures/TextureAtlas.java
- com.darkpaster.myLibrary.textures.TextureAtlas
-com/darkpaster/pixellife/ui/Ui.java
- com.darkpaster.pixellife.ui.Ui
-com/darkpaster/pixellife/level/TileType.java
- com.darkpaster.pixellife.level.TileType
-com/darkpaster/pixellife/PlayActivity.java
- com.darkpaster.pixellife.PlayActivity
- com.darkpaster.pixellife.PlayActivity$1
-com/darkpaster/pixellife/actors/mobs/Rabbit.java
- com.darkpaster.pixellife.actors.mobs.Rabbit
-com/darkpaster/pixellife/actors/mobs/MobType.java
- com.darkpaster.pixellife.actors.mobs.MobType
-com/darkpaster/pixellife/MainActivity.java
- com.darkpaster.pixellife.MainActivity
-com/darkpaster/pixellife/BuildConfig.java
- com.darkpaster.pixellife.BuildConfig
-com/darkpaster/pixellife/Game.java
- com.darkpaster.pixellife.Game
-com/darkpaster/pixellife/actors/Actor.java
- com.darkpaster.pixellife.actors.Actor
-com/darkpaster/pixellife/GameActivity.java
- com.darkpaster.pixellife.GameActivity
-com/darkpaster/pixellife/actors/mobs/Mob.java
- com.darkpaster.pixellife.actors.mobs.Mob
-com/darkpaster/myLibrary/textures/Texture.java
- com.darkpaster.myLibrary.textures.Texture
-com/darkpaster/pixellife/actors/hero/Hero.java
- com.darkpaster.pixellife.actors.hero.Hero

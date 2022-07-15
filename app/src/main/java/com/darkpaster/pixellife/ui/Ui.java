@@ -29,13 +29,13 @@ paint.setTextSize(40.0f);
 paint.setTextAlign(Paint.Align.CENTER);
 }
 
-public void render(Canvas canvas, float hp, float ht){
+public void render(float hp, float ht, Canvas canvas){
 heroInfo.draw(0.0f, 0.0f, canvas);
 heroIc.draw(0.0f, 25.0f, canvas);
-hpBar(canvas, hp, ht);
+hpBar(hp, ht, canvas);
 }
 
-public void hpBar(Canvas canvas, float hp, float ht){
+public void hpBar(float hp, float ht, Canvas canvas){
 float part = ht / 62.0f;
 //62x14
 float fin = hp / part;
@@ -50,9 +50,32 @@ hpBar.draw(132.0f, 4.0f, canvas);
 }
 String hp1 = String.format("%.1f", hp);
 String ht1 = String.format("%.1f", ht);
+if(ht > 9999){
+    paint.setTextSize(30.0f);
+}
 canvas.drawText(hp1 + "/" + ht1, 250.0f, 47.0f, paint);
 
 //hp: " + Float.toString(hp) + "/" + Float.toString(ht)"
 
 }
+
+public void enemyHPBar(float x, float y, float hp, float ht, Canvas canvas){
+    float part = ht / 55.0f;
+//62x14
+    float fin = hp / part;
+    if (fin > 55){
+        fin = 55.0f;
+    }
+    if((int)fin > 0){
+        hpBar = new Sprite(paint, hpAtlas.cut(0, 4, (int) fin, 5, 2, false));
+        hpBar.draw(x, y - 10.0f, canvas);
+    }
+
+    //String hp1 = String.format("%.1f", hp);
+    //String ht1 = String.format("%.1f", ht);
+    //canvas.drawText(hp1 + "/" + ht1, 250.0f, 47.0f, paint);
+}
+
+
+
 }

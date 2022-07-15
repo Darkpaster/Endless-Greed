@@ -32,8 +32,8 @@ private boolean tap = false;
 
 public static float center_x = 0.0f;
 public static float center_y = 0.0f;
-public static float cam_x = 0.0f;
-public static float cam_y = 0.0f;
+public static float camPosX = -2000.0f;
+public static float camPosY = -2000.0f;
 public static float x = 0.0f;
 public static float y = 0.0f;
 public static float x_10 = 0.0f;
@@ -78,26 +78,22 @@ Point size = new Point();
 display.getSize(size);
 //width = (size.x / 2) - 48;
 //height = (size.y / 2) - 48;
-width = ((size.x / Texture.TOTAL_SIZE) / 2);
-height = ((size.y / Texture.TOTAL_SIZE) / 2);
-center_x = TileMap.map_pos_x[height][width];
-center_y = TileMap.map_pos_y[height][width];
+width = (size.x / 2);
+height = (size.y / 2);
+center_x = width;
+center_y = height;
 //center_x = TileMap.map_pos_x[4][4];
 //center_y = TileMap.map_pos_y[7][7];
-x = center_x;
-y = center_y;
-width = size.x / 10;
-height = size.y / 10;
-x_10 = width;
-y_10 = height;
+x = center_x + 2000;
+y = center_y + 2000;
 
     }
     
     
     @Override
 protected void onSaveInstanceState(Bundle outState) {
-outState.putFloat(CAM_X_KEY, cam_x);
-outState.putFloat(CAM_Y_KEY, cam_y);
+outState.putFloat(CAM_X_KEY, camPosX);
+outState.putFloat(CAM_Y_KEY, camPosY);
 outState.putFloat(X_KEY, x);
 outState.putFloat(Y_KEY, y);
 super.onSaveInstanceState(outState);
@@ -105,9 +101,9 @@ super.onSaveInstanceState(outState);
 
 @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {  
-super.onRestoreInstanceState(savedInstanceState); 
-cam_x = savedInstanceState.getFloat(CAM_X_KEY);
-cam_y = savedInstanceState.getFloat(CAM_Y_KEY);
+super.onRestoreInstanceState(savedInstanceState);
+    camPosX = savedInstanceState.getFloat(CAM_X_KEY);
+    camPosY = savedInstanceState.getFloat(CAM_Y_KEY);
 x = savedInstanceState.getFloat(X_KEY);
 y = savedInstanceState.getFloat(Y_KEY);
         }
@@ -142,12 +138,13 @@ public boolean onTouch(View v, MotionEvent act){
    touch = true;
    touch_x = act.getX();
     touch_y = act.getY();
-    touch_x = touch_x - (touch_x % Texture.TOTAL_SIZE);
-    touch_y = touch_y - (touch_y % Texture.TOTAL_SIZE);
+    //touch_x = touch_x - (touch_x % Texture.TOTAL_SIZE);
+    //touch_y = touch_y - (touch_y % Texture.TOTAL_SIZE);
    } else if (act.getAction() == MotionEvent.ACTION_UP) {
    touch = false;
    } else if (act.getAction() == MotionEvent.ACTION_MOVE) {
-   touch = false;
+       touch_x = act.getX();
+       touch_y = act.getY();
    }
    
    

@@ -1,12 +1,13 @@
 package com.darkpaster.myLibrary;
 
-public class SpaceBody {
+public abstract class SpaceBody {
 
   protected float x;
   protected float y;
-  protected float speed = 6.0f;
+  protected float speed = 2.0f;
+  protected float maxSpeed = 3.0f;
 
-  public void update() {}
+  public abstract void update();
 
   public float getX() {
     return x;
