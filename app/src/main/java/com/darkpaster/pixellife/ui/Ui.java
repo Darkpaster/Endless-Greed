@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import com.darkpaster.myLibrary.textures.Sprite;
 import com.darkpaster.myLibrary.textures.TextureAtlas;
+import com.darkpaster.pixellife.actors.hero.Hero;
 
 
 public class Ui {
@@ -33,6 +34,8 @@ public void render(float hp, float ht, Canvas canvas){
 heroInfo.draw(0.0f, 0.0f, canvas);
 heroIc.draw(0.0f, 25.0f, canvas);
 hpBar(hp, ht, canvas);
+
+
 }
 
 public void hpBar(float hp, float ht, Canvas canvas){

@@ -5,7 +5,7 @@ public abstract class SpaceBody {
   protected float x;
   protected float y;
   protected float speed = 2.0f;
-  protected float maxSpeed = 3.0f;
+  protected float maxSpeed = 4.0f;
 
   public abstract void update();
 
@@ -32,4 +32,5 @@ public abstract class SpaceBody {
   public float getSpeed() {
     return speed;
   }
+  public float getMaxSpeed(){return maxSpeed;}
 }

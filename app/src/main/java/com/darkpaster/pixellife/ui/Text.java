@@ -38,10 +38,16 @@ public class Text {
     }
 
     public void removeText(){
-        this.text = "";
-        this.x = 0;
-        this.y = 0;
-        this.startTime = 0;
+        if(System.currentTimeMillis() - this.getStartTime() > this.getFadeTime()){
+            this.text = "";
+            this.x = 0;
+            this.y = 0;
+            this.startTime = 0;
+        }
+    }
+
+    public void render(Canvas canvas){
+        canvas.drawText(this.text, this.x, this.y, this.paint);
     }
 
     public float getX(){return x;}

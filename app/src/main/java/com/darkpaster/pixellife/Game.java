@@ -60,7 +60,7 @@ this.paint = paint;
 mainThread = new Thread(this);
 map = new TileMap(context, paint);
 
-hero = new Hero(context, "char.png", p);
+hero = new Hero(context, "char.png", paint);
 Hero.X = GameActivity.x;
 Hero.Y = GameActivity.y;
 x = Hero.X;
@@ -131,7 +131,9 @@ map.render(canvas);
 mobs.render(canvas);
 
 camera(-camX, -camY);
-canvas.drawText("FPS: " + Integer.toString(fps1), 700.0f, 50.0f, pain);
+canvas.drawText("FPS: " + Integer.toString(fps1), GameActivity.screenSizeX - 200.0f, GameActivity.screenSizeY, pain);
+canvas.drawText("Kill count: " + Integer.toString(Statistic.killCount), 500.0f, 50.0f, pain);
+canvas.drawText("lvl: " + Integer.toString((int) Hero.lvl), 50.0f, 200.0f, pain);
 //canvas.drawText("X_HERO: " + Float.toString(x) + " | " + "Y_HERO: " + Float.toString(y), 200.0f, 300.0f, paint);
 //canvas.drawText("hp: " + Float.toString(Hero.HP), 0.0f, 200.0f, paint);
 //canvas.drawText("x_mob: " + Float.toString(rabbit.getXMobs()) + " | " + "y_mob: " + Float.toString(rabbit.getYMobs()), 0.0f, 350.0f, paint);

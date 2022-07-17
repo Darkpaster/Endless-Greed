@@ -8,6 +8,7 @@ import com.darkpaster.myLibrary.SpaceBody;
 import com.darkpaster.myLibrary.textures.Texture;
 import com.darkpaster.myLibrary.textures.TextureAtlas;
 import com.darkpaster.myLibrary.utils.Random;
+import com.darkpaster.pixellife.Statistic;
 import com.darkpaster.pixellife.actors.hero.Hero;
 import com.darkpaster.pixellife.ui.Text;
 import com.darkpaster.pixellife.ui.Ui;
@@ -31,6 +32,8 @@ protected float HT = 0.0f;
 protected float ATK = 0.0f;
 protected float DR = 0.0f;
 protected float realSpeed = 1.0f;
+protected float expDrop = 0.0f;
+protected float goldDrop = 0.0f;
 
 protected TextureAtlas mob;
 protected Paint paint;
@@ -58,12 +61,12 @@ ui.enemyHPBar(x, y, HP, HT, canvas);
 
 
 protected void act(){
-update();
 
 }
 
 protected void attack(){
-float damage = DR(this.ATK, Hero.DR);
+    float damage = damageRoll(this.ATK);
+    damage = DR(damage, Hero.DR);
 Hero.HP -= damage;
 if (Hero.HP <= 0) {
     Hero.HP = 0.0f;
@@ -74,23 +77,38 @@ enemyDamage.createText(Integer.toString(i), Hero.X + Texture.TOTAL_SIZE / 2, Her
 }
 
     protected void attack(Actor mob){
-        float damage = DR(Hero.ATK, mob.DR);
-        int i = Random.Int((int) damage);
-        damage = i;
+        float damage = damageRoll(Hero.ATK);
+        damage = DR(damage, mob.DR);
         mob.HP -= damage;
         if (mob.HP <= 0) {
             mob.HP = 0.0f;
             die();
         }
-        heroDamage.createText(Integer.toString(i), mob.xMob + Texture.TOTAL_SIZE / 2, mob.yMob);
+        int dam = (int) damage;
+        if(Statistic.maxDealtDamage < dam) {
+            Statistic.maxDealtDamage = dam;
+        }
+        heroDamage.createText(Integer.toString(dam), mob.xMob + Texture.TOTAL_SIZE / 2, mob.yMob);
     }
 
 protected float DR(float damage, float dr) {
 return damage - dr > 0 ? damage - dr : 0;
 }
 
+protected float damageRoll(float damage){
+    int i = (int) damage;
+    if(damage > 1){
+        return (float) Random.IntRange(i / 2, i);
+    }else{
+        return 1;
+    }
+}
+
 protected void die(){
+    Statistic.killCount++;
+    Hero.earnExp(this);
     name = "none";
+    Hero.target = null;
 }
 
 
@@ -110,7 +128,19 @@ public String getName() {return name;}
 public String getDescription() {return description;}
 public float getXMobs() {return xMob;}
 public float getYMobs() {return yMob;}
+    public float getExpDrop(){return expDrop;}
 public void setXMobs(float x) {xMob = x;}
 public void setYMobs(float y) {yMob = y;}
+    public void setXYMobs(float x, float y){
+    xMob = x;
+    yMob = y;
+    }
+
+    public String getEnemyText(){
+    return enemyDamage.getText();
+    }
+    public String getHeroText(){
+        return heroDamage.getText();
+    }
 
 }

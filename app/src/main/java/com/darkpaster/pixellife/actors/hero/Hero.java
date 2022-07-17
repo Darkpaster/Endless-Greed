@@ -2,11 +2,15 @@ package com.darkpaster.pixellife.actors.hero;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import com.darkpaster.myLibrary.textures.Texture;
 import com.darkpaster.myLibrary.utils.Physic;
 import com.darkpaster.pixellife.GameActivity;
 import com.darkpaster.pixellife.PlayActivity;
 import com.darkpaster.pixellife.actors.Actor;
+import com.darkpaster.pixellife.actors.mobs.Mob;
+import com.darkpaster.pixellife.ui.Text;
 
 
 public class Hero extends Actor {
@@ -15,11 +19,15 @@ public static float Y = 0.0f;
 public static int hero_posX = (int) GameActivity.center_x;
 public static int hero_posY = (int) GameActivity.center_y;
 public static String nickname = PlayActivity.nick;
-public static float HP = 100.0f;
-public static float HT = 100.0f;
+public static float HP = 40.0f;
+public static float HT = 40.0f;
 public static float ATK = 5.0f;
 public static float DR = 1.0f;
 public static float speed = 6.0f;
+public static float exp = 0;
+public static float lvl = 1;
+public static float AS = 1.0f;
+public static Mob target = null;
 
 
 
@@ -41,11 +49,13 @@ public static float pointY = GameActivity.center_y;
 public static boolean running = false;
 public static float startX;
 public static float startY;
+public static Text lvlup;
 
 
 public Hero(Context context, String png, Paint paint) {
 super(context, png, paint);
 this.name = nickname;
+lvlup = new Text(Color.GREEN, 50, 2);
 }
 
 
@@ -91,31 +101,32 @@ if(running){
  float bodyX = X + size / 2;
  float bodyY = Y + size / 2;
 
-if(bodyX < pointX && bodyY < pointY){
-X += speed;
-Y += speed;
-}else if(bodyX > pointX && bodyY > pointY){
-X -= speed;
-Y -= speed;
-}else if(bodyX > pointX && bodyY < pointY){
-X -= speed;
-Y += speed;
-}else if(bodyX < pointX && bodyY > pointY){
-X += speed;
-Y -= speed;
-}else if(bodyX < pointX){
-X += speed;
-}else if(bodyX > pointX){
-X -= speed;
-}else if(bodyY < pointY){
-Y += speed;
-}else if(bodyY > pointY){
-Y -= speed;
+ float calcSpeedX = Physic.getDistanceX(pointX, pointY);
+ float calcSpeedY = Physic.getDistanceY(pointX, pointY);
+
+if(Physic.distance(bodyX, bodyY, pointX, pointY) > 12){
+
+
+    if(bodyX > pointX){
+        X -= calcSpeedX;
+    }else{
+        X += calcSpeedX;
+    }
+    if(bodyY > pointY){
+        Y -= calcSpeedY;
+    }else{
+        Y += calcSpeedY;
+    }
+
+
+
+//    X += calcSpeedX;
+//    Y += calcSpeedY;
+
+}else{
+    running = false;
 }
 
-if(Physic.distance(bodyX, bodyY, pointX, pointY) < 5){
-  running = false;
-}
 }
 
 
@@ -124,6 +135,30 @@ float aftY = Y;
 df = aftX - startX;
 df2 = aftY - startY;
 
+}
+
+public static void earnExp(Actor actor){
+    exp += actor.getExpDrop();
+    if(exp >= lvl * lvl + 4){
+        lvlUp();
+        exp = 0;
+    }
+}
+
+public static void lvlUp(){
+    lvl++;
+    HT += 10;
+    HP = HT;
+    ATK++;
+    AS -= 0.01f;
+    if(lvl % 3 == 0){
+        DR++;
+    }
+    lvlup.createText("Level up!", X, Y);
+}
+
+public static void setTarget(Mob mob){
+    target = mob;
 }
 }
 
