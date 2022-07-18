@@ -85,6 +85,7 @@ if(!GameActivity.stop){
 hero.update();
 mobs.update();
 mobs.spawn();
+
 }
 }
 
@@ -126,8 +127,8 @@ canvas = holder.lockCanvas();
 clearCanvas();
 
 camera(camX, camY);
+
 map.render(canvas);
-//rabbit.render(canvas, rabbit.getXMobs(), rabbit.getYMobs(), 0, 0, Texture.SPRITE_SIZE, Texture.SPRITE_SIZE, Texture.MULT_SIZE, false);
 mobs.render(canvas);
 
 camera(-camX, -camY);
@@ -135,12 +136,8 @@ canvas.drawText("FPS: " + Integer.toString(fps1), GameActivity.screenSizeX - 200
 canvas.drawText("Kill count: " + Integer.toString(Statistic.killCount), 500.0f, 50.0f, pain);
 canvas.drawText("lvl: " + Integer.toString((int) Hero.lvl), 50.0f, 200.0f, pain);
 //canvas.drawText("X_HERO: " + Float.toString(x) + " | " + "Y_HERO: " + Float.toString(y), 200.0f, 300.0f, paint);
-//canvas.drawText("hp: " + Float.toString(Hero.HP), 0.0f, 200.0f, paint);
-//canvas.drawText("x_mob: " + Float.toString(rabbit.getXMobs()) + " | " + "y_mob: " + Float.toString(rabbit.getYMobs()), 0.0f, 350.0f, paint);
-//canvas.drawText("POS_X: " + Float.toString(Hero.hero_posX) + " | " + "POS_Y: " + Float.toString(Hero.hero_posY), 0.0f, 250.0f, paint);
 
 
-//canvas.drawText("sizeX:" + Integer.toString(TileMap.map_walls_x.size()) + " | " + "sizeY: " + Integer.toString(TileMap.map_walls_y.size()), 0.0f, 500.0f, paint);
 
 ui.render(Hero.HP, Hero.HT, canvas);
 

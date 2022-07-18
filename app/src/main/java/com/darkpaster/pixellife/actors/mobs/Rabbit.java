@@ -10,6 +10,7 @@ public class Rabbit extends Mob {
 
 public Rabbit(Context context, String png, Paint paint){
 super(context, png, paint);
+this.shy = true;
 this.aggressive = false;
 this.warrior = false;
 this.name = "Кролик";
@@ -18,6 +19,7 @@ this.HP = 10;
 this.HT = 10;
 this.DR = 1;
 this.ATK = 2;
+this.speed = 1.0f;
 }
 
 }

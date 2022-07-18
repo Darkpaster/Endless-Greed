@@ -71,7 +71,7 @@ public void enemyHPBar(float x, float y, float hp, float ht, Canvas canvas){
     }
     if((int)fin > 0){
         hpBar = new Sprite(paint, hpAtlas.cut(0, 4, (int) fin, 5, 2, false));
-        hpBar.draw(x, y - 10.0f, canvas);
+        hpBar.draw(x - 5, y - 10.0f, canvas);
     }
 
     //String hp1 = String.format("%.1f", hp);

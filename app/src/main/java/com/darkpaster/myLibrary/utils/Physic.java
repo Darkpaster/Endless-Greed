@@ -3,6 +3,7 @@ package com.darkpaster.myLibrary.utils;
 import com.darkpaster.myLibrary.textures.Texture;
 import com.darkpaster.pixellife.actors.Actor;
 import com.darkpaster.pixellife.actors.hero.Hero;
+import com.darkpaster.pixellife.level.TileMap;
 
 public class Physic {
 
@@ -14,7 +15,16 @@ public class Physic {
     return (float) Math.sqrt(((hx - x) * (hx - x)) + ((hy - y) * (hy - y)));
   }
 
-  public static float getDistanceX(float x, float y){
+  public static float distanceXorY(float hx, float x){
+    return hx - x;
+  }
+
+  public static float pDistanceXorY(float hx, float x){
+    return (float) Math.sqrt((hx - x) * (hx - x));
+  }
+
+
+  public static float getSpeedX(float x, float y){
     float t = Texture.TOTAL_SIZE / 2;
     float y1 = (float) Math.sqrt((Hero.Y + t - y) * (Hero.Y + t - y));
     float x1 = (float) Math.sqrt((Hero.X + t - x) * (Hero.X + t - x));

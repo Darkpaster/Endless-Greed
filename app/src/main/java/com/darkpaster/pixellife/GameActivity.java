@@ -32,8 +32,8 @@ private boolean tap = false;
 
 public static float center_x = 0.0f;
 public static float center_y = 0.0f;
-public static float camPosX = -2000.0f;
-public static float camPosY = -2000.0f;
+public static float camPosX = -700.0f;
+public static float camPosY = -700.0f;
 public static float x = 0.0f;
 public static float y = 0.0f;
 public static float screenSizeX = 0.0f;
@@ -87,8 +87,8 @@ center_x = width - Texture.TOTAL_SIZE / 2;
 center_y = height;
 //center_x = TileMap.map_pos_x[4][4];
 //center_y = TileMap.map_pos_y[7][7];
-x = center_x + 2000;
-y = center_y + 2000;
+x = center_x + 700;
+y = center_y + 700;
 
     }
     

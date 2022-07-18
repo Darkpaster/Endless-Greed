@@ -1,10 +1,8 @@
 package com.darkpaster.pixellife.actors.hero;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import com.darkpaster.myLibrary.textures.Texture;
 import com.darkpaster.myLibrary.utils.Physic;
 import com.darkpaster.pixellife.GameActivity;
 import com.darkpaster.pixellife.PlayActivity;
@@ -28,6 +26,8 @@ public static float exp = 0;
 public static float lvl = 1;
 public static float AS = 1.0f;
 public static Mob target = null;
+public static float calcSpeedX;
+public static float calcSpeedY;
 
 
 
@@ -67,23 +67,8 @@ touch = GameActivity.touch;
 float center_x = GameActivity.center_x;
 float center_y = GameActivity.center_y;
 
-//if (X % size == 0){
-//  int posX_before = (int) (X / size);
-//}
-//if (Y % size == 0){
-//  int posY_before = (int) (Y / size);
-//}
-
-
-
 startX = X;
 startY = Y;
-
-//if(touch && center_x != GameActivity.touch_x || center_y != GameActivity.touch_y && touch){
-//GameActivity.touch = false;
-//if(running){
-//running = false;
-//}else{
 
   if(touch){
 running = true;
@@ -101,8 +86,8 @@ if(running){
  float bodyX = X + size / 2;
  float bodyY = Y + size / 2;
 
- float calcSpeedX = Physic.getDistanceX(pointX, pointY);
- float calcSpeedY = Physic.getDistanceY(pointX, pointY);
+ calcSpeedX = Physic.getSpeedX(pointX, pointY);
+ calcSpeedY = Physic.getDistanceY(pointX, pointY);
 
 if(Physic.distance(bodyX, bodyY, pointX, pointY) > 12){
 
