@@ -8,6 +8,8 @@ import com.darkpaster.myLibrary.SpaceBody;
 import com.darkpaster.myLibrary.textures.Texture;
 import com.darkpaster.myLibrary.textures.TextureAtlas;
 import com.darkpaster.myLibrary.utils.Random;
+import com.darkpaster.pixellife.GameActivity;
+import com.darkpaster.pixellife.PlayActivity;
 import com.darkpaster.pixellife.Statistic;
 import com.darkpaster.pixellife.actors.hero.Hero;
 import com.darkpaster.pixellife.ui.Text;
@@ -17,12 +19,7 @@ import static android.graphics.Color.*;
 
 
 public abstract class Actor extends SpaceBody{
-public final float tick = 1.0f;
-public static float time = 0.0f;
 //public static boolean waitEnemy = true;
-private float spended = 0.0f;
-protected float xMob = 0.0f;
-protected float yMob = 0.0f;
 protected float size = Texture.TOTAL_SIZE;
 
 protected String name = "Undefined";
@@ -31,15 +28,15 @@ protected float HP = 0.0f;
 protected float HT = 0.0f;
 protected float ATK = 0.0f;
 protected float DR = 0.0f;
-protected float realSpeed = 1.0f;
+protected float AS = 1.0f;
 protected float expDrop = 0.0f;
 protected float goldDrop = 0.0f;
 
-protected TextureAtlas mob;
-protected Paint paint;
-private Ui ui;
-public Text enemyDamage;
-public Text heroDamage;
+protected transient TextureAtlas mob;
+protected transient Paint paint;
+private transient Ui ui;
+public transient  Text enemyDamage;
+public transient  Text heroDamage;
 
 public Actor(Context context, String png, Paint paint){
     this.paint = paint;
@@ -54,8 +51,10 @@ heroDamage = new Text(YELLOW, 40, 1);
 public void render(Canvas canvas, float x, float y, int xR, int yR, int w, int h, int m, boolean c){
   canvas.drawBitmap(mob.cut(xR, yR, w, h, m, c), x, y, paint);
 canvas.drawText(name, x + 48.0f, y - 25.0f, paint);
-//canvas.drawLine(x + 24.0f, y - 5.0f, x + 60.0f, y - 5.0f, paint);
-ui.enemyHPBar(x, y, HP, HT, canvas);
+
+if(!this.name.equals(PlayActivity.nick)) {
+    ui.enemyHPBar(x, y, HP, HT, canvas);
+}
 }
 
 
@@ -64,31 +63,31 @@ protected void act(){
 
 }
 
-protected void attack(){
+protected void attack(Hero hero){
     float damage = damageRoll(this.ATK);
-    damage = DR(damage, Hero.DR);
-Hero.HP -= damage;
-if (Hero.HP <= 0) {
-    Hero.HP = 0.0f;
+    damage = DR(damage, hero.getDR());
+hero.HP -= damage;
+if (hero.getHP() <= 0) {
+    hero.HP = 0.0f;
 //die();
 }
 int i = (int) damage;
-enemyDamage.createText(Integer.toString(i), Hero.X + Texture.TOTAL_SIZE / 2, Hero.Y);
+enemyDamage.createText(Integer.toString(i), hero.getX() + Texture.TOTAL_SIZE / 2, hero.getY());
 }
 
-    protected void attack(Actor mob){
-        float damage = damageRoll(Hero.ATK);
+    protected void attack(Hero hero, Actor mob){
+        float damage = damageRoll(hero.getATK());
         damage = DR(damage, mob.DR);
         mob.HP -= damage;
         if (mob.HP <= 0) {
             mob.HP = 0.0f;
-            die();
+            die(hero);
         }
         int dam = (int) damage;
         if(Statistic.maxDealtDamage < dam) {
             Statistic.maxDealtDamage = dam;
         }
-        heroDamage.createText(Integer.toString(dam), mob.xMob + Texture.TOTAL_SIZE / 2, mob.yMob);
+        heroDamage.createText(Integer.toString(dam), mob.x + Texture.TOTAL_SIZE / 2, mob.y);
     }
 
 protected float DR(float damage, float dr) {
@@ -104,37 +103,29 @@ protected float damageRoll(float damage){
     }
 }
 
-protected void die(){
+protected void die(Hero hero){
     Statistic.killCount++;
-    Hero.earnExp(this);
+    hero.earnExp(this);
     name = "none";
-    Hero.target = null;
+    hero.setTarget(null);
 }
 
 
-public void setRealSpeed(float s) {realSpeed = s;}
 public void setHP(float hp) {HP = hp;}
 public void setHT(float ht) {HT = ht;}
 public void setDR(float dr) {DR = dr;}
 public void setATK(float atk) {ATK = atk;}
+    public void setAS(int AS){this.AS = AS;}
 public void setName(String n) {name = n;}
 public void setDescription(String s) {description = s;}
 public float getHP() {return HP;}
 public float getHT() {return HT;}
 public float getDR() {return DR;}
-public float getRealSpeed() {return realSpeed;}
 public float getATK() {return ATK;}
+    public float getAS(){return AS;}
 public String getName() {return name;}
 public String getDescription() {return description;}
-public float getXMobs() {return xMob;}
-public float getYMobs() {return yMob;}
     public float getExpDrop(){return expDrop;}
-public void setXMobs(float x) {xMob = x;}
-public void setYMobs(float y) {yMob = y;}
-    public void setXYMobs(float x, float y){
-    xMob = x;
-    yMob = y;
-    }
 
     public String getEnemyText(){
     return enemyDamage.getText();

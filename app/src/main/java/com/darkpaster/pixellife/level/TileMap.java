@@ -152,10 +152,10 @@ map_pos_y = new float[tiles_amount_x][tiles_amount_y];
 fillMap();
 }
 
-public void render(Canvas canvas) {
+public void render(Canvas canvas, Hero hero) {
 for (int i = 0; i < tiles_amount_y; i++){
 for (int j = 0; j < tiles_amount_x; j++){
-    if(Physic.distance(tile_size * j, tile_size * i) < (radius + 4) * tile_size) {
+    if(Physic.distance(tile_size * j, tile_size * i, hero) < (radius + 4) * tile_size) {
         canvas.drawBitmap(tileMap.get(TileType.getTile(map[i][j])), tile_size * j, tile_size * i, paint);
     }
 }

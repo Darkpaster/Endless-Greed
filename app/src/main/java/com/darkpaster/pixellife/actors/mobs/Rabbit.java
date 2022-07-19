@@ -15,10 +15,10 @@ this.aggressive = false;
 this.warrior = false;
 this.name = "Кролик";
 this.expDrop = 1.0f;
-this.HP = 10;
-this.HT = 10;
-this.DR = 1;
-this.ATK = 2;
+this.HP = 8;
+this.HT = 8;
+this.DR = 0;
+this.ATK = 1;
 this.speed = 1.0f;
 }
 

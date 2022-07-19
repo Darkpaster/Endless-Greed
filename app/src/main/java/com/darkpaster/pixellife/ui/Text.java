@@ -3,6 +3,8 @@ package com.darkpaster.pixellife.ui;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import java.io.Serializable;
+
 public class Text {
     private Paint paint;
     private long startTime = 0;

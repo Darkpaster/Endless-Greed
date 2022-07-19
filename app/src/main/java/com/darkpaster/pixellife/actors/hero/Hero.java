@@ -12,63 +12,50 @@ import com.darkpaster.pixellife.ui.Text;
 
 
 public class Hero extends Actor {
-public static float X = 0.0f;
-public static float Y = 0.0f;
-public static int hero_posX = (int) GameActivity.center_x;
-public static int hero_posY = (int) GameActivity.center_y;
-public static String nickname = PlayActivity.nick;
-public static float HP = 40.0f;
-public static float HT = 40.0f;
-public static float ATK = 5.0f;
-public static float DR = 1.0f;
-public static float speed = 6.0f;
-public static float exp = 0;
-public static float lvl = 1;
-public static float AS = 1.0f;
-public static Mob target = null;
-public static float calcSpeedX;
-public static float calcSpeedY;
+protected int exp = 0;
+protected int lvl = 1;
+protected Mob target = null;
+protected float calcSpeedX;
+protected float calcSpeedY;
 
 
-
-
-public boolean touch;
+    public boolean touch;
 public float touch_x = GameActivity.center_x;
 public float touch_y = GameActivity.center_y;
-private float dfX = 0.0f;
-private float dfY = 0.0f;
-  private float bfX = 0.0f;
-private float bfY = 0.0f;
-private float afX = 0.0f;
-private float afY = 0.0f;
-public static float df = 0.0f;
-public static float df2 = 0.0f;
+public float df = 0.0f;
+public float df2 = 0.0f;
 
-public static float pointX = GameActivity.center_x;
-public static float pointY = GameActivity.center_y;
-public static boolean running = false;
-public static float startX;
-public static float startY;
-public static Text lvlup;
+public float pointX = GameActivity.center_x;
+public float pointY = GameActivity.center_y;
+public boolean running = false;
+public float startX;
+public float startY;
+public transient Text lvlup;
 
 
 public Hero(Context context, String png, Paint paint) {
 super(context, png, paint);
-this.name = nickname;
+this.name = PlayActivity.nick;
 lvlup = new Text(Color.GREEN, 50, 2);
+this.HT = 40.0f;
+this.HP = 40.0f;
+this.ATK = 5.0f;
+this.DR = 1.0f;
+this.speed = 6.0f;
+this.x = GameActivity.x;
+this.y = GameActivity.y;
 }
 
 
 
-@Override
 public void update() {
 touch = GameActivity.touch;
 
 float center_x = GameActivity.center_x;
 float center_y = GameActivity.center_y;
 
-startX = X;
-startY = Y;
+startX = x;
+startY = y;
 
   if(touch){
 running = true;
@@ -77,36 +64,32 @@ touch_y = GameActivity.touch_y;
 
 float difX = touch_x - center_x;
 float difY = touch_y - center_y;
-pointX = X + difX;
-pointY = Y + difY;
+pointX = x + difX;
+pointY = y + difY;
 }
 
 
 if(running){
- float bodyX = X + size / 2;
- float bodyY = Y + size / 2;
+ float bodyX = x + size / 2;
+ float bodyY = y + size / 2;
 
- calcSpeedX = Physic.getSpeedX(pointX, pointY);
- calcSpeedY = Physic.getDistanceY(pointX, pointY);
+ calcSpeedX = Physic.getSpeedX(pointX, pointY, this);
+ calcSpeedY = Physic.getSpeedY(pointX, pointY, this);
 
 if(Physic.distance(bodyX, bodyY, pointX, pointY) > 12){
 
 
     if(bodyX > pointX){
-        X -= calcSpeedX;
+        x -= calcSpeedX;
     }else{
-        X += calcSpeedX;
+        x += calcSpeedX;
     }
     if(bodyY > pointY){
-        Y -= calcSpeedY;
+        y -= calcSpeedY;
     }else{
-        Y += calcSpeedY;
+        y += calcSpeedY;
     }
 
-
-
-//    X += calcSpeedX;
-//    Y += calcSpeedY;
 
 }else{
     running = false;
@@ -114,15 +97,14 @@ if(Physic.distance(bodyX, bodyY, pointX, pointY) > 12){
 
 }
 
-
-float aftX = X;
-float aftY = Y;
+float aftX = x;
+float aftY = y;
 df = aftX - startX;
 df2 = aftY - startY;
 
 }
 
-public static void earnExp(Actor actor){
+public void earnExp(Actor actor){
     exp += actor.getExpDrop();
     if(exp >= lvl * lvl + 4){
         lvlUp();
@@ -130,7 +112,7 @@ public static void earnExp(Actor actor){
     }
 }
 
-public static void lvlUp(){
+public void lvlUp(){
     lvl++;
     HT += 10;
     HP = HT;
@@ -139,12 +121,21 @@ public static void lvlUp(){
     if(lvl % 3 == 0){
         DR++;
     }
-    lvlup.createText("Level up!", X, Y);
+    lvlup.createText("Level up!", x, y);
 }
 
-public static void setTarget(Mob mob){
-    target = mob;
+public void setTarget(Mob mob){
+    this.target = mob;
 }
+public void setExp(int exp){this.exp = exp;}
+public void setLvl(int lvl){this.lvl = lvl;}
+    public int getExp(){return exp;}
+public int getLvl(){return lvl;}
+
+public Mob getTarget(){return target;}
+
+    @Override
+    public void update(Hero hero) {
+
+    }
 }
-
-

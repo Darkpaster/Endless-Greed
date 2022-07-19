@@ -1,13 +1,17 @@
 package com.darkpaster.myLibrary;
 
-public abstract class SpaceBody {
+import com.darkpaster.pixellife.actors.hero.Hero;
+
+import java.io.Serializable;
+
+public abstract class SpaceBody implements Serializable {
 
   protected float x;
   protected float y;
   protected float speed = 2.0f;
   protected float maxSpeed = 4.0f;
 
-  public abstract void update();
+  public abstract void update(Hero hero);
 
   public float getX() {
     return x;
@@ -20,6 +24,10 @@ public abstract class SpaceBody {
   public void setX(float x) {
     this.x = x;
   }
+  public void setXY(float x, float y){
+    this.x = x;
+    this.y = y;
+  }
 
   public void setY(float y) {
     this.y = y;
@@ -27,6 +35,9 @@ public abstract class SpaceBody {
 
   public void setSpeed(float speed) {
     this.speed = speed;
+  }
+  public void setMaxSpeed(float speed) {
+    this.maxSpeed = speed;
   }
 
   public float getSpeed() {

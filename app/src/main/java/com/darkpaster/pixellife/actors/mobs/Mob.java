@@ -1,16 +1,16 @@
 package com.darkpaster.pixellife.actors.mobs;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Paint;
-import com.darkpaster.myLibrary.textures.Texture;
 import com.darkpaster.myLibrary.utils.Physic;
 import com.darkpaster.myLibrary.utils.Random;
 import com.darkpaster.myLibrary.utils.Time;
-import com.darkpaster.pixellife.GameActivity;
+import com.darkpaster.pixellife.Game;
 import com.darkpaster.pixellife.actors.Actor;
 import com.darkpaster.pixellife.actors.hero.Hero;
 import com.darkpaster.pixellife.level.TileMap;
+
+//import static com.darkpaster.myLibrary.utils.Physic.game;
 
 
 public class Mob extends Actor {
@@ -33,11 +33,11 @@ protected boolean shy = false;
 
 
 
-  private Time cd;
-  private Time cdHero;
-  private Time cdWalk;
-  private Time cdRun;
-  private Time test;
+  private transient Time cd;
+  private transient Time cdHero;
+  private transient Time cdWalk;
+  private transient Time cdRun;
+  private transient Time test;
 
 
   public Mob(Context context, String png, Paint paint) {
@@ -47,11 +47,12 @@ protected boolean shy = false;
     cdWalk = new Time();
     cdRun = new Time();
     test = new Time();
+
   }
 
 
   @Override
-  public void update() {
+  public void update(Hero hero) {
 //    if(aggressive && shy){
 //      shy = false;
 //    }
@@ -61,22 +62,22 @@ protected boolean shy = false;
 //    }
 //    if(warrior && shy){
 //      shy = false;
-//    }
+//
 
-    startX = xMob;
-    startY = yMob;
+    startX = x;
+    startY = y;
 
-    hX = Hero.X + size / 2;
-    hY = Hero.Y + size / 2;
-    difX = hX - xMob;
-    difY = hY - yMob;
+    hX = hero.getX() + size / 2;
+    hY = hero.getY() + size / 2;
+    difX = hX - x;
+    difY = hY - y;
 
-    move();
+    move(hero);
 
-    float df1 = startX - xMob;
-    float df2 = startY - yMob;
+    float df1 = startX - x;
+    float df2 = startY - y;
 
-    collision(df1, df2);
+    collision(df1, df2, hero);
 
     if (cdWalk.cd(2.0f)) {
       random = Random.IntRange(1, 10);
@@ -84,87 +85,88 @@ protected boolean shy = false;
 
   }
 
-  public void collision(float df1, float df2){
+
+  public void collision(float df1, float df2, Hero hero){
 
     for (int i = 0; i < TileMap.map_walls_y.size(); i++) {
-      float beyondX = Physic.pDistanceXorY(Hero.X, TileMap.map_walls_x.get(i));
-      float beyondY = Physic.pDistanceXorY(Hero.Y, TileMap.map_walls_y.get(i));
+      float beyondX = Physic.pDistanceXorY(hero.getX(), TileMap.map_walls_x.get(i));
+      float beyondY = Physic.pDistanceXorY(hero.getY(), TileMap.map_walls_y.get(i));
 
       //float beyondY = (float) Math.sqrt((Hero.Y - TileMap.map_walls_y.get(i)) * (Hero.Y - TileMap.map_walls_y.get(i)));
       if(beyondX < size || beyondY < size) {
 
 
-        if(beyondX < size && beyondY < beyondX && Hero.X < TileMap.map_walls_x.get(i)){
-          Hero.X -= (size - beyondX);
+        if(beyondX < size && beyondY < beyondX && hero.getX() < TileMap.map_walls_x.get(i)){
+          hero.setX(hero.getX() - (size - beyondX));
           //Hero.Y = Hero.startY;
-        }else if(beyondX < size && beyondY < beyondX && Hero.X > TileMap.map_walls_x.get(i)){
-          Hero.X += (size - beyondX);
+        }else if(beyondX < size && beyondY < beyondX && hero.getX() > TileMap.map_walls_x.get(i)){
+          hero.setX(hero.getX() + (size - beyondX));
           //Hero.Y = Hero.startY;
         }
 
 
-          if (beyondY < size && beyondX < beyondY && Hero.Y < TileMap.map_walls_y.get(i)) {
-            Hero.Y -= (size - beyondY);
+          if (beyondY < size && beyondX < beyondY && hero.getY() < TileMap.map_walls_y.get(i)) {
+            hero.setY(hero.getY() - (size - beyondY));
             //Hero.X = Hero.startX;
-          } else if (beyondY < size && beyondX < beyondY && Hero.Y > TileMap.map_walls_y.get(i)) {
-            Hero.Y += (size - beyondY);
+          } else if (beyondY < size && beyondX < beyondY && hero.getY() > TileMap.map_walls_y.get(i)) {
+            hero.setY(hero.getY() + (size - beyondY));
             //Hero.X = Hero.startX;
           }
 
 
       }
-      float beyondXmob = Physic.pDistanceXorY(xMob, TileMap.map_walls_x.get(i));
-      float beyondYmob = Physic.pDistanceXorY(yMob, TileMap.map_walls_y.get(i));
+      float beyondXmob = Physic.pDistanceXorY(x, TileMap.map_walls_x.get(i));
+      float beyondYmob = Physic.pDistanceXorY(y, TileMap.map_walls_y.get(i));
       if(beyondXmob < size || beyondYmob < size) {
 
-        if(beyondXmob < size && beyondYmob < beyondXmob && xMob < TileMap.map_walls_x.get(i)){
-          xMob -= (size - beyondXmob);
+        if(beyondXmob < size && beyondYmob < beyondXmob && x < TileMap.map_walls_x.get(i)){
+          x -= (size - beyondXmob);
           //Hero.Y = Hero.startY;
-        }else if(beyondXmob < size && beyondYmob < beyondXmob && xMob > TileMap.map_walls_x.get(i)){
-          xMob += (size - beyondXmob);
+        }else if(beyondXmob < size && beyondYmob < beyondXmob && x > TileMap.map_walls_x.get(i)){
+          x += (size - beyondXmob);
           //Hero.Y = Hero.startY;
         }
 
 
-        if (beyondYmob < size && beyondXmob < beyondYmob && yMob < TileMap.map_walls_y.get(i)) {
-          yMob -= (size - beyondYmob);
+        if (beyondYmob < size && beyondXmob < beyondYmob && y < TileMap.map_walls_y.get(i)) {
+          y -= (size - beyondYmob);
           //Hero.X = Hero.startX;
-        } else if (beyondYmob < size && beyondXmob < beyondYmob && yMob > TileMap.map_walls_y.get(i)) {
-          yMob += (size - beyondYmob);
+        } else if (beyondYmob < size && beyondXmob < beyondYmob && y > TileMap.map_walls_y.get(i)) {
+          y += (size - beyondYmob);
           //Hero.X = Hero.startX;
         }
 
-          while (Physic.distance(xMob, yMob, TileMap.map_walls_x.get(i), TileMap.map_walls_y.get(i)) < size) {
-            xMob += speed;
-            yMob += speed;
+          while (Physic.distance(x, y, TileMap.map_walls_x.get(i), TileMap.map_walls_y.get(i)) < size) {
+            x += speed;
+            y += speed;
         }
 
       }
     }
 
-    if(Physic.distance(xMob, yMob) < size * 1){
+    if(Physic.distance(x, y, hero) < size * 1){
       if(warrior && aggressive || this.HP > 3 && !warrior && aggressive) {
-        xMob = startX;
-        yMob = startY;
+        x = startX;
+        y = startY;
       }
     }
 
   }
 
-  public void move() {
+  public void move(Hero hero) {
 
     if (cdRun.getStarted()) {
-      hit();
-      calcSpeedX = Physic.getDistanceX(this, xMob, yMob);
-      calcSpeedY = Physic.getDistanceY(this, xMob, yMob);
-      bodyMobx = xMob + size / 2;
-      bodyMoby = yMob + size / 2;
+      hit(hero);
+      calcSpeedX = Physic.getDistanceX( this, hero, x, y);
+      calcSpeedY = Physic.getDistanceY( this, hero, x, y);
+      bodyMobx = x + size / 2;
+      bodyMoby = y + size / 2;
 
       runAway(bodyMobx, bodyMoby, calcSpeedX, calcSpeedY);
     }else{
-      if (Physic.distance(xMob, yMob) < size * 3) {
+      if (Physic.distance(x, y, hero) < size * 3) {
 
-        hit();
+        hit(hero);
 
         if (this.HP <= this.HT / 4 + 1 && !warrior || shy && !aggressive) {
           runAway(bodyMobx, bodyMoby, calcSpeedX, calcSpeedY);
@@ -195,30 +197,30 @@ protected boolean shy = false;
 
     }
     if(hX > bodyMobx){
-      xMob -= calcSpeedX;
+      x -= calcSpeedX;
     }else{
-      xMob += calcSpeedX;
+      x += calcSpeedX;
     }
     if(hY > bodyMoby){
-      yMob -= calcSpeedY;
+      y -= calcSpeedY;
     }else{
-      yMob += calcSpeedY;
+      y += calcSpeedY;
     }
   }
 
   public void defaultMove(){
     switch (random) {
       case 1:
-        xMob += speed;
+        x += speed;
         break;
       case 2:
-        xMob -= speed;
+        x -= speed;
         break;
       case 3:
-        yMob += speed;
+        y += speed;
         break;
       case 4:
-        yMob -= speed;
+        y -= speed;
         break;
       default:
         break;
@@ -228,36 +230,36 @@ protected boolean shy = false;
   public void chasing(float bodyMobx, float bodyMoby, float calcSpeedX, float calcSpeedY){
     //System.out.println("chasing");
     if (hX > bodyMobx) {
-      xMob += calcSpeedX;
+      x += calcSpeedX;
     } else {
-      xMob -= calcSpeedX;
+      x -= calcSpeedX;
     }
     if (hY > bodyMoby) {
-      yMob += calcSpeedY;
+      y += calcSpeedY;
     } else {
-      yMob -= calcSpeedY;
+      y -= calcSpeedY;
     }
   }
 
-  public void hit(){
-    if (Physic.distance(xMob, yMob) < size * 1 + 10) {
-      if(Hero.target != null && Physic.distance(Hero.target.getXMobs(), Hero.target.getYMobs()) > size * 1 + 10){
-        Hero.target = null;
+  public void hit(Hero hero){
+    if (Physic.distance(x, y, hero) < size * 1 + 10) {
+      if(hero.getTarget() != null && Physic.distance(hero.getTarget().getX(), hero.getTarget().getY(), hero) > size * 1 + 10){
+        hero.setTarget(null);
       }
       //System.out.println("hit");
 
-      if (cd.cd(1.0f)) {
+      if (cd.cd(this.AS)) {
         if(aggressive) {
-          attack();
+          attack(hero);
         }
       }
 
-      if(cdHero.cd(Hero.AS) && !this.name.equals("none")){
-        if(Hero.target == null){
-          Hero.setTarget(this);
+      if(cdHero.cd(hero.getAS()) && !this.name.equals("none")){
+        if(hero.getTarget() == null){
+          hero.setTarget(this);
         }
-        if(Hero.target == this){
-          attack(this);
+        if(hero.getTarget() == this){
+          attack(hero, this);
           if(!this.shy && !aggressive){
             runAway(bodyMobx, bodyMoby, calcSpeedX, calcSpeedY);
           }

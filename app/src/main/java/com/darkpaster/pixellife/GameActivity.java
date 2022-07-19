@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.darkpaster.myLibrary.textures.Texture;
+import com.darkpaster.pixellife.actors.Generator;
+import com.darkpaster.pixellife.actors.hero.Hero;
 import com.darkpaster.pixellife.level.TileMap;
 
 public class GameActivity extends Activity implements OnTouchListener {
@@ -30,6 +32,15 @@ public static boolean touch;
 public static boolean stop = false;
 private boolean tap = false;
 
+    private final String CAM_X_KEY = "Xbdejr";
+    private final String CAM_Y_KEY = "Ymfhwj";
+    private final String X_KEY = "Xqpjr";
+    private final String Y_KEY = "Ymqlj";
+    private final String HERO_KEY = "hero";
+    private final String MOBS_KEY = "enemies";
+    public static Hero savedHero = null;
+    public static Generator savedMobs = null;
+
 public static float center_x = 0.0f;
 public static float center_y = 0.0f;
 public static float camPosX = -700.0f;
@@ -40,10 +51,7 @@ public static float screenSizeX = 0.0f;
 public static float screenSizeY = 0.0f;
 private int width;
 private int height;
-private final String CAM_X_KEY = "Xbdejr";
-private final String CAM_Y_KEY = "Ymfhwj";
-private final String X_KEY = "Xqpjr";
-private final String Y_KEY = "Ymqlj";
+
 
 
 //public static boolean ready = true;
@@ -59,9 +67,11 @@ private final String Y_KEY = "Ymqlj";
  
  
  canv = txt.cnv;
+
  
  mainLayout.setOnTouchListener(this);
- Toast.makeText(getApplicationContext(), "onCreate called", Toast.LENGTH_LONG).show();
+// Toast.makeText(getApplicationContext(), "onCreate called", Toast.LENGTH_LONG).show();
+    System.out.println("onCreate");
         
         Window w = getWindow();
         w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -90,27 +100,36 @@ center_y = height;
 x = center_x + 700;
 y = center_y + 700;
 
+//if(savedInstanceState != null){
+    //onSaveInstanceState(savedInstanceState);
+    //onRestoreInstanceState(savedInstanceState);
+//}
     }
-    
-    
-    @Override
-protected void onSaveInstanceState(Bundle outState) {
-outState.putFloat(CAM_X_KEY, camPosX);
-outState.putFloat(CAM_Y_KEY, camPosY);
-outState.putFloat(X_KEY, x);
-outState.putFloat(Y_KEY, y);
-super.onSaveInstanceState(outState);
-}
 
-@Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {  
-super.onRestoreInstanceState(savedInstanceState);
-    camPosX = savedInstanceState.getFloat(CAM_X_KEY);
-    camPosY = savedInstanceState.getFloat(CAM_Y_KEY);
-x = savedInstanceState.getFloat(X_KEY);
-y = savedInstanceState.getFloat(Y_KEY);
-        }
-        
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        System.out.println("saved");
+        //outState.putFloat(CAM_X_KEY, camPosX);
+        //outState.putFloat(CAM_Y_KEY, camPosY);
+        outState.putSerializable(HERO_KEY, txt.gameThread.hero);
+        outState.putSerializable(MOBS_KEY, txt.gameThread.mobs);
+        System.out.println(outState.getSerializable(HERO_KEY));
+        System.out.println(outState.getSerializable(MOBS_KEY));
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        System.out.println("restored");
+        //camPosX = savedInstanceState.getFloat(CAM_X_KEY);
+        //camPosY = savedInstanceState.getFloat(CAM_Y_KEY);
+        //x = savedInstanceState.getFloat(X_KEY);
+        //y = savedInstanceState.getFloat(Y_KEY);
+        savedHero = (Hero) savedInstanceState.getSerializable(HERO_KEY);
+        savedMobs = (Generator) savedInstanceState.getSerializable(MOBS_KEY);
+        System.out.println(txt.gameThread.hero.getLvl());
+    }
     
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -154,39 +173,43 @@ public boolean onTouch(View v, MotionEvent act){
     return true;
      }
      
-     public void tap() {
-     
-     }
+//     public void tap() {
+//
+//     }
     
     
     
     protected void onStart() { 
 super.onStart();
-Toast.makeText(getApplicationContext(), "onStart called", Toast.LENGTH_LONG).show();
+//Toast.makeText(getApplicationContext(), "onStart called", Toast.LENGTH_LONG).show();
+        System.out.println("onStart");
 }
 protected void onResume() { 
 super.onResume();
-Toast.makeText(getApplicationContext(), "onResume called", Toast.LENGTH_LONG).show();
+//Toast.makeText(getApplicationContext(), "onResume called", Toast.LENGTH_LONG).show();
 }
 protected void onPause() { 
 stop = true;
 super.onPause();
-Toast.makeText(getApplicationContext(), "onPause called", Toast.LENGTH_LONG).show();
+//Toast.makeText(getApplicationContext(), "onPause called", Toast.LENGTH_LONG).show();
+    System.out.println("onPause");
 }
 protected void onStop() { 
 stop = true;
 super.onStop();
-Toast.makeText(getApplicationContext(), "onStop called", Toast.LENGTH_LONG).show();
+//Toast.makeText(getApplicationContext(), "onStop called", Toast.LENGTH_LONG).show();
+    System.out.println("onStop");
 }
 
 protected void onDestroy() { 
 super.onDestroy();
-Toast.makeText(getApplicationContext(), "onDestroy called", Toast.LENGTH_LONG).show();
+//Toast.makeText(getApplicationContext(), "onDestroy called", Toast.LENGTH_LONG).show();
 }
 protected void onRestart() { 
 super.onRestart();
 stop = false;
-Toast.makeText(getApplicationContext(), "onRestart called", Toast.LENGTH_LONG).show();
+//Toast.makeText(getApplicationContext(), "onRestart called", Toast.LENGTH_LONG).show();
+    System.out.println("onRestart");
 }
 
 

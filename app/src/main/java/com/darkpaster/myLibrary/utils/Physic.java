@@ -1,6 +1,7 @@
 package com.darkpaster.myLibrary.utils;
 
 import com.darkpaster.myLibrary.textures.Texture;
+import com.darkpaster.pixellife.Game;
 import com.darkpaster.pixellife.actors.Actor;
 import com.darkpaster.pixellife.actors.hero.Hero;
 import com.darkpaster.pixellife.level.TileMap;
@@ -8,9 +9,10 @@ import com.darkpaster.pixellife.level.TileMap;
 public class Physic {
 
 
-  public static float distance(float x, float y){
-    return (float) Math.sqrt(((Hero.X - x) * (Hero.X - x)) + ((Hero.Y - y) * (Hero.Y - y)));
+  public static float distance(float x, float y, Hero hero){
+    return (float) Math.sqrt(((hero.getX() - x) * (hero.getX() - x)) + ((hero.getY() - y) * (hero.getY() - y)));
   }
+
   public static float distance(float hx, float hy, float x, float y){
     return (float) Math.sqrt(((hx - x) * (hx - x)) + ((hy - y) * (hy - y)));
   }
@@ -24,10 +26,10 @@ public class Physic {
   }
 
 
-  public static float getSpeedX(float x, float y){
+  public static float getSpeedX(float x, float y, Hero hero){
     float t = Texture.TOTAL_SIZE / 2;
-    float y1 = (float) Math.sqrt((Hero.Y + t - y) * (Hero.Y + t - y));
-    float x1 = (float) Math.sqrt((Hero.X + t - x) * (Hero.X + t - x));
+    float y1 = (float) Math.sqrt((hero.getY() + t - y) * (hero.getY() + t - y));
+    float x1 = (float) Math.sqrt((hero.getX() + t - x) * (hero.getX() + t - x));
 
     x1 /= (x1 + y1);
 
@@ -36,15 +38,15 @@ public class Physic {
     }else if(x1 < 0.001f){
       x1 = 0.001f;
     }
-    x1 *= Hero.speed;
+    x1 *= hero.getSpeed();
 
     return x1;
   }
 
-  public static float getDistanceY(float x, float y){
+  public static float getSpeedY(float x, float y, Hero hero){
     float t = Texture.TOTAL_SIZE / 2;
-    float y1 = (float) Math.sqrt((Hero.Y + t - y) * (Hero.Y + t - y));
-    float x1 = (float) Math.sqrt((Hero.X + t - x) * (Hero.X + t - x));
+    float y1 = (float) Math.sqrt((hero.getY() + t - y) * (hero.getY() + t - y));
+    float x1 = (float) Math.sqrt((hero.getX() + t - x) * (hero.getX() + t - x));
 
       y1 /= (x1 + y1);
 
@@ -53,16 +55,16 @@ public class Physic {
     }else if(y1 < 0.001f){
       y1 = 0.001f;
     }
-      y1 *= Hero.speed;
+      y1 *= hero.getSpeed();
 
     return y1;
   }
 
 
-  public static float getDistanceX(Actor actor, float x, float y){
+  public static float getDistanceX(Actor actor, Hero hero, float x, float y){
     float t = Texture.TOTAL_SIZE / 2;
-    float y1 = (float) Math.sqrt( ( (y + t) - (Hero.Y + t) ) * ( (y + t) - (Hero.Y + t) ) );
-    float x1 = (float) Math.sqrt( ( (x + t) - (Hero.X + t) ) * ( (x + t) - (Hero.X + t) ) );
+    float y1 = (float) Math.sqrt( ( (y + t) - (hero.getY() + t) ) * ( (y + t) - (hero.getY() + t) ) );
+    float x1 = (float) Math.sqrt( ( (x + t) - (hero.getX() + t) ) * ( (x + t) - (hero.getX() + t) ) );
 
 
     x1 /= (x1 + y1);
@@ -76,10 +78,10 @@ public class Physic {
     return x1;
   }
 
-  public static float getDistanceY(Actor actor, float x, float y){
+  public static float getDistanceY(Actor actor, Hero hero, float x, float y){
     float t = Texture.TOTAL_SIZE / 2;
-    float y1 = (float) Math.sqrt( ( (y + t) - (Hero.Y + t) ) * ( (y + t) - (Hero.Y + t) ) );
-    float x1 = (float) Math.sqrt( ( (x + t) - (Hero.X + t) ) * ( (x + t) - (Hero.X + t) ) );
+    float y1 = (float) Math.sqrt( ( (y + t) - (hero.getY() + t) ) * ( (y + t) - (hero.getY() + t) ) );
+    float x1 = (float) Math.sqrt( ( (x + t) - (hero.getX() + t) ) * ( (x + t) - (hero.getX() + t) ) );
 
     y1 /= (x1 + y1);
 

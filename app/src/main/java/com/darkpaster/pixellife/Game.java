@@ -3,6 +3,7 @@ package com.darkpaster.pixellife;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.view.SurfaceHolder;
 import com.darkpaster.myLibrary.textures.Texture;
 import com.darkpaster.myLibrary.utils.Time;
@@ -18,6 +19,8 @@ public class Game implements Runnable{
 
 public static final int WIDTH = TileMap.WORLD_SIZE_X;
 public static final int HEIGHT = TileMap.WORLD_SIZE_Y;
+
+
 
 
 public static final float UPDATE_RATE = 60.0f; // Фпс
@@ -41,8 +44,9 @@ public Hero hero;
 public Rabbit rabbit;
 private TileMap map;
 private boolean first = true;
+private boolean saved = false;
 private Ui ui;
-private Generator mobs;
+public Generator mobs;
 
 public static float x = 0.0f;
 public static float y = 0.0f;
@@ -60,17 +64,26 @@ this.paint = paint;
 mainThread = new Thread(this);
 map = new TileMap(context, paint);
 
-hero = new Hero(context, "char.png", paint);
-Hero.X = GameActivity.x;
-Hero.Y = GameActivity.y;
-x = Hero.X;
-y = Hero.Y;
-mobs = new Generator(context, paint, canvas);
-
+if(GameActivity.savedHero == null && GameActivity.savedMobs == null){
+    System.out.println("123");
+    init(context);
+}else{
+    hero = GameActivity.savedHero;
+    mobs = GameActivity.savedMobs;
+}
+    x = hero.getX();
+    y = hero.getY();
 ui = new Ui(context);
 
 pain.setTextSize(50.0f);
 pain.setColor(WHITE);
+}
+
+public void init(Context context){
+    hero = new Hero(context, "char.png", paint);
+    //hero.setXY(GameActivity.x, GameActivity.y);
+
+    mobs = new Generator(context, paint, canvas);
 }
 
 public void start() {
@@ -80,10 +93,13 @@ mainThread.start();
 public void setRunning(boolean run) {
 this.running = run; }
 
+
+
+
 private void update(){
 if(!GameActivity.stop){
 hero.update();
-mobs.update();
+mobs.update(hero);
 mobs.spawn();
 
 }
@@ -105,10 +121,10 @@ if(!GameActivity.stop){
 if(!first) {
 float x2 = x;
 float y2 = y;
-GameActivity.x = Hero.X;
-GameActivity.y = Hero.Y;
-x = Hero.X;
-y = Hero.Y;
+GameActivity.x = hero.getX();
+GameActivity.y = hero.getY();
+x = hero.getX();
+y = hero.getY();
 float dif_x = x2 - x;
 float dif_y = y2 - y;
 GameActivity.camPosX += dif_x;
@@ -118,8 +134,8 @@ camY = GameActivity.camPosY;
 } else {
 center1 = GameActivity.center_x;
 center2 = GameActivity.center_y;
-x = Hero.X;
-y = Hero.Y;
+x = hero.getX();
+y = hero.getY();
 }
 canvas = holder.lockCanvas();
 
@@ -128,18 +144,18 @@ clearCanvas();
 
 camera(camX, camY);
 
-map.render(canvas);
-mobs.render(canvas);
+map.render(canvas, hero);
+mobs.render(canvas, hero);
 
 camera(-camX, -camY);
 canvas.drawText("FPS: " + Integer.toString(fps1), GameActivity.screenSizeX - 200.0f, GameActivity.screenSizeY, pain);
 canvas.drawText("Kill count: " + Integer.toString(Statistic.killCount), 500.0f, 50.0f, pain);
-canvas.drawText("lvl: " + Integer.toString((int) Hero.lvl), 50.0f, 200.0f, pain);
+canvas.drawText("lvl: " + Integer.toString((int) hero.getLvl()), 50.0f, 200.0f, pain);
 //canvas.drawText("X_HERO: " + Float.toString(x) + " | " + "Y_HERO: " + Float.toString(y), 200.0f, 300.0f, paint);
 
 
 
-ui.render(Hero.HP, Hero.HT, canvas);
+ui.render(hero.getHP(), hero.getHT(), canvas);
 
 hero.render(canvas, center1, center2, 0, 0, Texture.SPRITE_SIZE, Texture.SPRITE_SIZE, Texture.MULT_SIZE, false);
 
