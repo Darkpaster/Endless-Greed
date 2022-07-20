@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Paint;
 
 public class Chicken extends Mob {
+    private static final long serialVersionUID = 7L;
 
     public Chicken(Context context, String png, Paint paint){
         super(context, png, paint);

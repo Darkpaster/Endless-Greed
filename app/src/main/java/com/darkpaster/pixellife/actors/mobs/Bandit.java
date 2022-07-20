@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Paint;
 
 public class Bandit extends Mob{
+    private static final long serialVersionUID = 6L;
 
     public Bandit(Context context, String png, Paint paint){
         super(context, png, paint);

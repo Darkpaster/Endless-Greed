@@ -7,16 +7,18 @@ import android.graphics.Matrix;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 
-public class TextureAtlas {
+public class TextureAtlas implements Serializable {
+  private static final long serialVersionUID = 11L;
 
-  private Bitmap bitmap;
-  private Bitmap sourse;
-  private Bitmap bm;
-  private Matrix matrix;
+  private transient Bitmap bitmap;
+  private transient Bitmap sourse;
+  private transient Bitmap bm;
+  private transient Matrix matrix;
   private String png;
-  private Context context;
-  private InputStream ims;
+  private transient Context context;
+  private transient InputStream ims;
 
   private float width;
   private float height;

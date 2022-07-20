@@ -12,6 +12,7 @@ import com.darkpaster.pixellife.ui.Text;
 
 
 public class Hero extends Actor {
+    private static final long serialVersionUID = 5L;
 protected int exp = 0;
 protected int lvl = 1;
 protected Mob target = null;
@@ -19,7 +20,7 @@ protected float calcSpeedX;
 protected float calcSpeedY;
 
 
-    public boolean touch;
+public boolean touch;
 public float touch_x = GameActivity.center_x;
 public float touch_y = GameActivity.center_y;
 public float df = 0.0f;
@@ -30,7 +31,7 @@ public float pointY = GameActivity.center_y;
 public boolean running = false;
 public float startX;
 public float startY;
-public transient Text lvlup;
+public Text lvlup;
 
 
 public Hero(Context context, String png, Paint paint) {

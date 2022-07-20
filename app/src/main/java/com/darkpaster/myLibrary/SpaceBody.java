@@ -5,6 +5,7 @@ import com.darkpaster.pixellife.actors.hero.Hero;
 import java.io.Serializable;
 
 public abstract class SpaceBody implements Serializable {
+  private static final long serialVersionUID = 2L;
 
   protected float x;
   protected float y;

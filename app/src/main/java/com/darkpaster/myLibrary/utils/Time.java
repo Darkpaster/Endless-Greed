@@ -1,6 +1,9 @@
 package com.darkpaster.myLibrary.utils;
 
-public class Time {
+import java.io.Serializable;
+
+public class Time implements Serializable {
+    private static final long serialVersionUID = 9L;
     public static final long SECOND = 1000000000l;
     public static long time = 0;
 

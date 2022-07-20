@@ -16,6 +16,7 @@ import java.util.*;
 
 
 public class Generator implements Serializable {
+    private static final long serialVersionUID = 1L;
    private List<Rabbit> rabbits = new ArrayList<Rabbit>();
     private transient Context context;
     private transient Paint paint;

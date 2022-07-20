@@ -14,6 +14,7 @@ import com.darkpaster.pixellife.level.TileMap;
 
 
 public class Mob extends Actor {
+  private static final long serialVersionUID = 4L;
 protected boolean aggressive = true;
 protected boolean warrior = true;
 protected boolean shy = false;
@@ -33,11 +34,11 @@ protected boolean shy = false;
 
 
 
-  private transient Time cd;
-  private transient Time cdHero;
-  private transient Time cdWalk;
-  private transient Time cdRun;
-  private transient Time test;
+  private Time cd;
+  private Time cdHero;
+  private Time cdWalk;
+  private Time cdRun;
+  private Time test;
 
 
   public Mob(Context context, String png, Paint paint) {

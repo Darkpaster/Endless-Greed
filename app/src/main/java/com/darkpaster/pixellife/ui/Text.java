@@ -5,8 +5,9 @@ import android.graphics.Paint;
 
 import java.io.Serializable;
 
-public class Text {
-    private Paint paint;
+public class Text implements Serializable{
+    private static final long serialVersionUID = 10L;
+    private transient Paint paint;
     private long startTime = 0;
     private String text = "";
     private float x = 0;

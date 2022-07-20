@@ -19,6 +19,7 @@ import static android.graphics.Color.*;
 
 
 public abstract class Actor extends SpaceBody{
+    private static final long serialVersionUID = 3L;
 //public static boolean waitEnemy = true;
 protected float size = Texture.TOTAL_SIZE;
 
@@ -32,11 +33,11 @@ protected float AS = 1.0f;
 protected float expDrop = 0.0f;
 protected float goldDrop = 0.0f;
 
-protected transient TextureAtlas mob;
+protected TextureAtlas mob;
 protected transient Paint paint;
 private transient Ui ui;
-public transient  Text enemyDamage;
-public transient  Text heroDamage;
+public Text enemyDamage;
+public Text heroDamage;
 
 public Actor(Context context, String png, Paint paint){
     this.paint = paint;

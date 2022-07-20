@@ -5,9 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Environment;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import com.darkpaster.pixellife.Game;
+
+import static android.os.Environment.getExternalStorageState;
 
 public class Texture extends SurfaceView implements SurfaceHolder.Callback {
   public static final int SPRITE_SIZE = 16;
@@ -33,6 +36,14 @@ public class Texture extends SurfaceView implements SurfaceHolder.Callback {
     paint.setTextSize(50.0f);
     this.context = context;
     surfaceHolder = getHolder();
+    System.out.println("Каталог, в который ваше приложение должно записывать файлы: " + context.getFilesDir());
+    //System.out.println("Если вы хотите записать файл в память телефона, используйте: " + context.openFileOutput());
+    System.out.println("Если вам нужен путь к SDCard, используйте: " + Environment.getExternalStorageDirectory());
+    System.out.println("Если вы собираетесь записывать на SDCard, вам также необходимо проверить ее состояние с помощью: "
+            + getExternalStorageState());
+    //Если вы храните небольшие файлы для своего приложения, они могут попасть в память телефона,
+    // а не на SD-карту, поэтому используйте методы Context.openFileOutput()и .Context.openFileInput()
+    //OutputStream os = openFileOutput("samplefile.txt", MODE_PRIVATE);
   }
 
   @Override
@@ -77,9 +88,5 @@ destroy();
     }
   }
 
-  public void drawText(Canvas canvas, String s, float x, float y, float size) {
-    paint.setTextSize(size);
 
-    canvas.drawText(s, x, y, paint);
-  }
 }

@@ -1,31 +1,28 @@
 #Internal package file, do not edit.
-#Tue Jul 19 20:26:20 EEST 2022
+#Wed Jul 20 20:54:01 EEST 2022
 3.set=ASSET
 8.base=C\:\\PixelLife\\app\\build\\intermediates\\assets\\debug
 3.path=bandit.png
 2.base=C\:\\PixelLife\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 0.path=char.png
 8.set=ASSET
-9.baseType=DIRECTORY
 5.base=C\:\\PixelLife\\app\\build\\intermediates\\assets\\debug
 6.baseType=DIRECTORY
 0.base=C\:\\PixelLife\\app\\build\\intermediates\\assets\\debug
 3.base=C\:\\PixelLife\\app\\build\\intermediates\\assets\\debug
 6.base=C\:\\PixelLife\\app\\build\\intermediates\\assets\\debug
 5.path=rabbit.png
-9.set=ASSET
 3.baseType=DIRECTORY
 8.path=ui_hero_info.png
 1.path=lvl.txt
 4.set=ASSET
 0.baseType=DIRECTORY
-9.base=C\:\\PixelLife\\app\\build\\intermediates\\assets\\debug
 0.set=ASSET
 5.baseType=DIRECTORY
 8.baseType=DIRECTORY
 6.set=ASSET
 4.path=hp_bar.png
-count=10
+count=9
 5.set=ASSET
 7.path=tiles.png
 1.set=ASSET
@@ -37,7 +34,6 @@ count=10
 7.set=ASSET
 7.base=C\:\\PixelLife\\app\\build\\intermediates\\assets\\debug
 4.base=C\:\\PixelLife\\app\\build\\intermediates\\assets\\debug
-9.path=gameData.dat
 1.base=C\:\\PixelLife\\app\\build\\intermediates\\assets\\debug
 4.baseType=DIRECTORY
 6.path=velocirooster.png

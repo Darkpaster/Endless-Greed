@@ -6,6 +6,7 @@ import android.graphics.Paint;
 
 
 public class Rabbit extends Mob {
+    private static final long serialVersionUID = 8L;
 
 
 public Rabbit(Context context, String png, Paint paint){

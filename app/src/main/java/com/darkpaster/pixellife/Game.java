@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
+import com.darkpaster.myLibrary.Saver;
 import com.darkpaster.myLibrary.textures.Texture;
 import com.darkpaster.myLibrary.utils.Time;
 import com.darkpaster.pixellife.actors.Generator;
@@ -12,6 +13,10 @@ import com.darkpaster.pixellife.actors.hero.Hero;
 import com.darkpaster.pixellife.actors.mobs.Rabbit;
 import com.darkpaster.pixellife.level.TileMap;
 import com.darkpaster.pixellife.ui.Ui;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
 
 import static android.graphics.Color.WHITE;
 
@@ -40,13 +45,13 @@ private boolean running = false;
 private Paint paint;
 private Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
 private Paint pain = new Paint(Paint.ANTI_ALIAS_FLAG);
-public Hero hero;
+public Hero hero = null;
 public Rabbit rabbit;
 private TileMap map;
 private boolean first = true;
 private boolean saved = false;
 private Ui ui;
-public Generator mobs;
+public Generator mobs = null;
 
 public static float x = 0.0f;
 public static float y = 0.0f;
@@ -55,6 +60,7 @@ private float camY = 0.0f;
 public static float center1 = 0.0f;
 public static float center2 = 0.0f;
 
+private HashMap<String, Object> savedData = new HashMap<>();
 
 
 public Game(SurfaceHolder holder, Context context, Canvas canvas, Paint paint) {
@@ -64,13 +70,8 @@ this.paint = paint;
 mainThread = new Thread(this);
 map = new TileMap(context, paint);
 
-if(GameActivity.savedHero == null && GameActivity.savedMobs == null){
-    System.out.println("123");
+
     init(context);
-}else{
-    hero = GameActivity.savedHero;
-    mobs = GameActivity.savedMobs;
-}
     x = hero.getX();
     y = hero.getY();
 ui = new Ui(context);
@@ -79,11 +80,51 @@ pain.setTextSize(50.0f);
 pain.setColor(WHITE);
 }
 
-public void init(Context context){
-    hero = new Hero(context, "char.png", paint);
-    //hero.setXY(GameActivity.x, GameActivity.y);
+public void init(Context context) {
+    if(hero == null && mobs == null){
+        if(!GameActivity.myBundle.isEmpty()){
+            hero = (Hero) GameActivity.myBundle.getSerializable(GameActivity.HERO_KEY);
+            mobs = (Generator) GameActivity.myBundle.getSerializable(GameActivity.MOBS_KEY);
+        }else{
+            try {
+                savedData = Saver.loadData();
+            }catch (ClassNotFoundException e){
+                e.printStackTrace();
+            }
+            if(savedData.size() > 0){
+                hero = (Hero) savedData.get(GameActivity.HERO_KEY);
+                mobs = (Generator) savedData.get(GameActivity.MOBS_KEY);
+            }else{
+                hero = new Hero(context, "char.png", paint);
+                mobs = new Generator(context, paint, canvas);
+            }
+        }
 
-    mobs = new Generator(context, paint, canvas);
+    }else{
+        if(!GameActivity.myBundle.isEmpty()){
+            try{
+                Saver.saveData(GameActivity.myBundle);
+                savedData = Saver.loadData();
+            }catch (IOException | ClassNotFoundException e){
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+
+
+//    hero = new Hero(context, "char.png", paint);
+//    mobs = new Generator(context, paint, canvas);
+//    if(!GameActivity.myBundle.isEmpty()) {
+//        try {
+//            Saver.saveData(GameActivity.myBundle);
+//            System.out.println("ok");
+//        }catch (IOException e){
+//            e.printStackTrace();
+//        }
+//    }
+
 }
 
 public void start() {
@@ -97,6 +138,7 @@ this.running = run; }
 
 
 private void update(){
+    //System.out.println("save!");
 if(!GameActivity.stop){
 hero.update();
 mobs.update(hero);

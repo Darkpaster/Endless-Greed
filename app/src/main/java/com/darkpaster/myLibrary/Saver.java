@@ -1,67 +1,68 @@
 package com.darkpaster.myLibrary;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcel;
+import com.darkpaster.pixellife.GameActivity;
 import com.darkpaster.pixellife.actors.Actor;
+import com.darkpaster.pixellife.actors.Generator;
+import com.darkpaster.pixellife.actors.hero.Hero;
+import com.darkpaster.pixellife.actors.mobs.Mob;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Saver {
+    private static final String path = "/data/user/0/com.darkpaster.pixellife/files/";
+    private static final String gameData = "gameData.dat";
 
-    protected void saveData(Actor actor){
+
+    public static void saveData(Bundle bundle) throws FileNotFoundException{
+        //System.out.println(context.getFilesDir());
+        File file = new File(path + gameData);
+        if(!file.exists()) {
+            try{
+                file.createNewFile();
+                System.out.println("successfully");
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }else{
+            System.out.println("created already: " + file.getName());
+        }
+
+        HashMap<String, Object> data = new HashMap<>();
+        data.put(GameActivity.HERO_KEY, bundle.getSerializable(GameActivity.HERO_KEY));
+        data.put(GameActivity.MOBS_KEY, bundle.getSerializable(GameActivity.MOBS_KEY));
         try {
-            ObjectOutputStream sad = new ObjectOutputStream(new FileOutputStream("src/main/assets/gameData.dat"));
-            sad.writeObject(actor);
+            ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(file));
+            writer.writeObject(data);
+            writer.close();
+            System.out.println("successfully");
         }catch(IOException e){
             e.printStackTrace();
         }
         }
 
-    protected void loadData(){
+    public static HashMap<String, Object> loadData() throws ClassNotFoundException{
+        File file = new File(path + gameData);
+        HashMap<String, Object> data = new HashMap<>();
+        if(file.exists()){
+            try{
+                ObjectInputStream reader = new ObjectInputStream(new FileInputStream(file));
+                data = (HashMap<String, Object>) reader.readObject();
+                reader.close();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }else{
+            System.out.println("save file doesnt exist");
+        }
 
+        return data;
     }
 
 
-//    private String serializeBundle(final Bundle bundle) {
-//        String base64 = null;
-//        final Parcel parcel = Parcel.obtain();
-//        try {
-//            parcel.writeBundle(bundle);
-//            final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//            final GZIPOutputStream zos = new GZIPOutputStream(new BufferedOutputStream(bos));
-//            zos.write(parcel.marshall());
-//            zos.close();
-//            base64 = Base64.encodeToString(bos.toByteArray(), 0);
-//        } catch(IOException e) {
-//            e.printStackTrace();
-//            base64 = null;
-//        } finally {
-//            parcel.recycle();
-//        }
-//        return base64;
-//    }
-//
-//    private Bundle deserializeBundle(final String base64) {
-//        Bundle bundle = null;
-//        final Parcel parcel = Parcel.obtain();
-//        try {
-//            final ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-//            final byte[] buffer = new byte[1024];
-//            final GZIPInputStream zis = new GZIPInputStream(new ByteArrayInputStream(Base64.decode(base64, 0)));
-//            int len = 0;
-//            while ((len = zis.read(buffer)) != -1) {
-//                byteBuffer.write(buffer, 0, len);
-//            }
-//            zis.close();
-//            parcel.unmarshall(byteBuffer.toByteArray(), 0, byteBuffer.size());
-//            parcel.setDataPosition(0);
-//            bundle = parcel.readBundle();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            bundle = null;
-//        }  finally {
-//            parcel.recycle();
-//        }
-//
-//        return bundle;
-//    }
 
 }
