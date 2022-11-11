@@ -6,6 +6,7 @@ import com.darkpaster.myLibrary.utils.Physic;
 import com.darkpaster.myLibrary.utils.Random;
 import com.darkpaster.myLibrary.utils.Time;
 import com.darkpaster.pixellife.Game;
+import com.darkpaster.pixellife.GameActivity;
 import com.darkpaster.pixellife.actors.Actor;
 import com.darkpaster.pixellife.actors.hero.Hero;
 import com.darkpaster.pixellife.level.TileMap;
@@ -35,25 +36,64 @@ protected boolean shy = false;
 
 
   private Time cd;
-  private Time cdHero;
+  //private Time cdHero;
   private Time cdWalk;
   private Time cdRun;
-  private Time test;
+  public boolean lock = false;
 
 
   public Mob(Context context, String png, Paint paint) {
     super(context, png, paint);
     cd = new Time();
-    cdHero = new Time();
+    //cdHero = new Time();
     cdWalk = new Time();
     cdRun = new Time();
-    test = new Time();
+
+  }
+
+  public void newTarget(Hero hero){
+    if(Physic.distance(hero.pointX, hero.pointY, x + size / 2, y + size / 2)
+            < size && GameActivity.touch && hero.getTarget() != this){
+      hero.setXY(hero.startX, hero.startY);
+      hero.running = false;
+      hero.setTarget(this);
+      //System.out.println("Target has been selected");
+      lock = true;
+    }
+    if(!GameActivity.touch){
+      lock = false;
+    }
+    if(lock){
+      hero.running = false;
+    }
 
   }
 
 
   @Override
   public void update(Hero hero) {
+
+    newTarget(hero);
+
+//    if(hero.getTarget() != null && GameActivity.touch && Physic.distance(hero.pointX,
+//            hero.pointY, hero.getTarget().getX() + size / 2, hero.getTarget().getY() + size / 2) < size && z){
+//      boolean z1 = hero.press.cd(1.0f);
+//      System.out.println("pressing...");
+//      hero.setXY(hero.startX, hero.startY);
+//      hero.running = false;
+//      if(z1){
+//        hero.setTarget(null);
+//        System.out.println("reset target because of press");
+//        lock2 = true;
+//      }
+//    }else{
+//      if(hero.press.getStarted()){
+//        hero.press.disable();
+//        System.out.println("pressing canceled");
+//        //hero.running = true;
+//      }
+//      //hero.running = true;
+//    }
 //    if(aggressive && shy){
 //      shy = false;
 //    }
@@ -146,7 +186,7 @@ protected boolean shy = false;
     }
 
     if(Physic.distance(x, y, hero) < size * 1){
-      if(warrior && aggressive || this.HP > 3 && !warrior && aggressive) {
+      if(warrior && aggressive || this.HP > this.HT / 4 + 1 && !warrior && aggressive) {
         x = startX;
         y = startY;
       }
@@ -155,13 +195,13 @@ protected boolean shy = false;
   }
 
   public void move(Hero hero) {
+    calcSpeedX = Physic.getDistanceX( this, hero, x, y);
+    calcSpeedY = Physic.getDistanceY( this, hero, x, y);
+    bodyMobx = x + size / 2;
+    bodyMoby = y + size / 2;
 
     if (cdRun.getStarted()) {
-      hit(hero);
-      calcSpeedX = Physic.getDistanceX( this, hero, x, y);
-      calcSpeedY = Physic.getDistanceY( this, hero, x, y);
-      bodyMobx = x + size / 2;
-      bodyMoby = y + size / 2;
+      //hit(hero);
 
       runAway(bodyMobx, bodyMoby, calcSpeedX, calcSpeedY);
     }else{
@@ -169,12 +209,15 @@ protected boolean shy = false;
 
         hit(hero);
 
-        if (this.HP <= this.HT / 4 + 1 && !warrior || shy && !aggressive) {
+        if (this.HP <= this.HT / 4 && !warrior || shy && !aggressive) {
           runAway(bodyMobx, bodyMoby, calcSpeedX, calcSpeedY);
+          //System.out.println("runAway");
         } else {
           if(aggressive) {
             chasing(bodyMobx, bodyMoby, calcSpeedX, calcSpeedY);
+            //System.out.println("chasing");
           }else{
+            //System.out.println("default");
             defaultMove();
           }
         }
@@ -207,6 +250,10 @@ protected boolean shy = false;
     }else{
       y += calcSpeedY;
     }
+    if(cd.getStarted()){
+      cd.disable();
+      //System.out.println("fixed");
+    }
   }
 
   public void defaultMove(){
@@ -229,7 +276,6 @@ protected boolean shy = false;
   }
 
   public void chasing(float bodyMobx, float bodyMoby, float calcSpeedX, float calcSpeedY){
-    //System.out.println("chasing");
     if (hX > bodyMobx) {
       x += calcSpeedX;
     } else {
@@ -243,28 +289,37 @@ protected boolean shy = false;
   }
 
   public void hit(Hero hero){
-    if (Physic.distance(x, y, hero) < size * 1 + 10) {
-      if(hero.getTarget() != null && Physic.distance(hero.getTarget().getX(), hero.getTarget().getY(), hero) > size * 1 + 10){
-        hero.setTarget(null);
-      }
-      //System.out.println("hit");
 
+    if(Physic.distance(x, y, hero) < size * 1 + 48 && aggressive) {
+      if(!cd.getStarted()){
+        attack(hero);
+      }
       if (cd.cd(this.AS)) {
-        if(aggressive) {
           attack(hero);
-        }
+          cd.cd(this.AS);
+      }
+    }
+
+    if (hero.getTarget() != null && Physic.distance(hero.getTarget().getX(), hero.getTarget().getY(), hero) < size * 1 + 48) {
+//      if(hero.getTarget() != null && Physic.distance(hero.getTarget().getX(), hero.getTarget().getY(), hero) > size * 1 + 10){
+//        hero.setTarget(null);
+//      }
+      if(!hero.autoAttack.getStarted() && hero.getTarget() != null){
+        attack(hero, hero.getTarget());
       }
 
-      if(cdHero.cd(hero.getAS()) && !this.name.equals("none")){
-        if(hero.getTarget() == null){
-          hero.setTarget(this);
-        }
-        if(hero.getTarget() == this){
-          attack(hero, this);
-          if(!this.shy && !aggressive){
+
+      if(hero.autoAttack.cd(hero.getAS()) && !hero.getTarget().name.equals("none") && hero.getTarget() != null){
+//        if(hero.getTarget() == null){
+//          hero.setTarget(this);
+//        }
+        //if(hero.getTarget() == this){
+          attack(hero, hero.getTarget());
+          hero.autoAttack.cd(hero.getAS());
+          if(!aggressive){
             runAway(bodyMobx, bodyMoby, calcSpeedX, calcSpeedY);
           }
-        }
+        //}
       }
     }
   }

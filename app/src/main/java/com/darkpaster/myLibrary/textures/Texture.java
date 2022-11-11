@@ -13,9 +13,9 @@ import com.darkpaster.pixellife.Game;
 import static android.os.Environment.getExternalStorageState;
 
 public class Texture extends SurfaceView implements SurfaceHolder.Callback {
-  public static final int SPRITE_SIZE = 16;
-  public static final int MULT_SIZE = 6;
-  public static final int TOTAL_SIZE = SPRITE_SIZE * MULT_SIZE;
+  public static final byte SPRITE_SIZE = 16;
+  public static byte MULT_SIZE = 6;
+  public static int TOTAL_SIZE = SPRITE_SIZE * MULT_SIZE;
 
   private SurfaceHolder surfaceHolder;
   private Bitmap bitmapSourse;
@@ -25,7 +25,7 @@ public class Texture extends SurfaceView implements SurfaceHolder.Callback {
   private Context context;
 
   private Paint paint; // = new Paint(Paint.ANTI_ALIAS_FLAG);
-  public Game gameThread;
+  public static Game gameThread;
   private Sprite sprite;
 
   public Texture(Context context) {
@@ -36,6 +36,7 @@ public class Texture extends SurfaceView implements SurfaceHolder.Callback {
     paint.setTextSize(50.0f);
     this.context = context;
     surfaceHolder = getHolder();
+
     System.out.println("Каталог, в который ваше приложение должно записывать файлы: " + context.getFilesDir());
     //System.out.println("Если вы хотите записать файл в память телефона, используйте: " + context.openFileOutput());
     System.out.println("Если вам нужен путь к SDCard, используйте: " + Environment.getExternalStorageDirectory());
@@ -44,6 +45,17 @@ public class Texture extends SurfaceView implements SurfaceHolder.Callback {
     //Если вы храните небольшие файлы для своего приложения, они могут попасть в память телефона,
     // а не на SD-карту, поэтому используйте методы Context.openFileOutput()и .Context.openFileInput()
     //OutputStream os = openFileOutput("samplefile.txt", MODE_PRIVATE);
+  }
+
+  public static void resize(boolean zoom){
+    if(zoom ? ++MULT_SIZE < 7 : --MULT_SIZE > 0){
+      TOTAL_SIZE = SPRITE_SIZE * MULT_SIZE;
+      gameThread.map.resize();
+      System.out.println("Resized");
+    }else{
+      MULT_SIZE = zoom ? (byte) 6 : 1;
+      System.out.println("Not resized");
+    }
   }
 
   @Override

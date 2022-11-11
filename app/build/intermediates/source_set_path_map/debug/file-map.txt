@@ -1,0 +1,8 @@
+com.darkpaster.pixellife.app-pngs-0 E:\projects\Endless-greed\app\build\generated\res\pngs\debug
+com.darkpaster.pixellife.app-resValues-1 E:\projects\Endless-greed\app\build\generated\res\resValues\debug
+com.darkpaster.pixellife.app-rs-2 E:\projects\Endless-greed\app\build\generated\res\rs\debug
+com.darkpaster.pixellife.app-mergeDebugResources-3 E:\projects\Endless-greed\app\build\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.darkpaster.pixellife.app-mergeDebugResources-4 E:\projects\Endless-greed\app\build\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.darkpaster.pixellife.app-merged_res-5 E:\projects\Endless-greed\app\build\intermediates\merged_res\debug
+com.darkpaster.pixellife.app-debug-6 E:\projects\Endless-greed\app\src\debug\res
+com.darkpaster.pixellife.app-main-7 E:\projects\Endless-greed\app\src\main\res

@@ -43,6 +43,12 @@ public boolean pass(){
         }
 }
 
+public void disable(){
+    started = false;
+    startTime = 0;
+    cdTime = 0;
+}
+
 public boolean getStarted(){
         return started;
 }

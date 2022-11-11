@@ -1,0 +1,76 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "Все файлы (*)",
+    "fileStates": {
+        "C:/Users/1/Downloads/SomeGame/app/src/main/res/tiles/startzone.tmx": {
+            "scale": 0.7041875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 393.36114316144494,
+                "y": 404.0117156297152
+            }
+        },
+        "C:/Users/1/Downloads/SomeGame/app/src/main/res/tiles/tilemap.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 788,
+                "y": 1111
+            }
+        },
+        "C:/Users/1/Downloads/SomeGame/app/src/main/res/tiles/tiles_forest.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/1/Downloads/areal.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/1/Downloads/mapokey.tmx": {
+            "scale": 0.35,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 557.1428571428572,
+                "y": 764.2857142857143
+            }
+        },
+        "C:/Users/1/Downloads/mytiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/1/Downloads/realtiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/1/Downloads/SomeGame/app/src/main/res/tiles",
+    "map.height": 50,
+    "map.lastUsedFormat": "tmx",
+    "map.renderOrder": null,
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 50,
+    "openFiles": [
+    ],
+    "project": "безымянный.tiled-project",
+    "recentFiles": [
+        "C:/Users/1/Downloads/SomeGame/app/src/main/res/tiles/tiles_forest.tsx",
+        "C:/Users/1/Downloads/SomeGame/app/src/main/res/tiles/startzone.tmx",
+        "C:/Users/1/Downloads/realtiles.tsx",
+        "C:/Users/1/Downloads/SomeGame/app/src/main/res/tiles/tilemap.tmx",
+        "C:/Users/1/Downloads/areal.tsx",
+        "C:/Users/1/Downloads/mapokey.tmx",
+        "C:/Users/1/Downloads/mytiles.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

@@ -11,7 +11,7 @@ android:background="#111">
  android:id="@+id/backgr_image"
  android:layout_width="wrap_content"
 android:layout_height="wrap_content"
- android:scaleType="centerInside"
+ android:scaleType="fitXY"
  android:src="@drawable/scaled_art"/>
 
 
@@ -32,9 +32,9 @@ android:onClick="menu"/>
 <Button
 android:id="@+id/start_game_button"
     
-android:text="Войти в мир"
-android:padding="15dp"
-android:textSize="30dp"
+android:text="Новая игра"
+android:padding="10dp"
+android:textSize="20dp"
 android:textStyle="bold"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
@@ -43,6 +43,21 @@ android:layout_alignParentBottom="true"
 android:layout_centerHorizontal="true"
 android:background="@drawable/buttons"
 android:onClick="startGame"/>
+    <Button
+            android:id="@+id/start_saved_game_button"
+
+            android:text="Продолжить"
+            android:padding="10dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/buttons"
+            android:onClick="startSavedGame"/>
 
 <EditText
     android:id="@+id/edit_nickName"
@@ -66,8 +81,8 @@ android:onClick="startGame"/>
 <RelativeLayout
 android:layout_width="match_parent"
     android:layout_height="250dp"
-    android:layout_above="@id/edit_nickName"
-    android:layout_marginBottom="60dp"
+    android:layout_below="@id/menu_button"
+    android:layout_marginTop="60dp"
 android:background="#222">
 
 <Button
@@ -109,7 +124,7 @@ android:onClick="next"/>
         <TextView
 android:id="@+id/char_text"
     
-android:text="Патрик"
+android:text="Первый"
 android:textSize="30dp"
 android:textStyle="bold"
 android:textColor="#318"

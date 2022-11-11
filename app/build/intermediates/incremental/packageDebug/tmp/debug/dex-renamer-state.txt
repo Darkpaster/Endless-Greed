@@ -1,4 +1,4 @@
-#Wed Jul 20 20:54:01 EEST 2022
-base.0=C\:\\PixelLife\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+#Thu Nov 10 14:32:56 EET 2022
+base.0=E\:\\projects\\Endless-greed\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

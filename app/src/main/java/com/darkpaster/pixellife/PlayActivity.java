@@ -3,16 +3,20 @@ package com.darkpaster.pixellife;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View.OnClickListener;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import com.darkpaster.myLibrary.Saver;
 import com.darkpaster.myLibrary.textures.Texture;
 import com.darkpaster.myLibrary.textures.TextureAtlas;
 
@@ -37,7 +41,21 @@ w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
-        
+    Display display = getWindowManager().getDefaultDisplay();
+    Point size = new Point();
+    display.getSize(size);
+
+    Button newGame = (Button) findViewById(R.id.start_game_button);
+        Button savedGame = (Button) findViewById(R.id.start_saved_game_button);
+
+        if(Saver.checkGameState()){
+            newGame.setX(-300);
+            savedGame.setX(300);
+            //System.out.println("ssssssssss");
+        }else{
+            savedGame.setVisibility(View.GONE);
+            //System.out.println("aaaaaaaaaaaaaaa");
+        }
        
         
         ImageView character = (ImageView) findViewById(R.id.char_image);
@@ -55,7 +73,9 @@ w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 nickName.setCursorVisible(true);
     }
 });
-        
+
+
+
     }
     
     @Override
@@ -91,18 +111,37 @@ finish();
     }
     
     public void previous(View v){
-      Toast.makeText(getApplicationContext(), "Ток патрик пока", Toast.LENGTH_LONG).show();
+      Toast.makeText(getApplicationContext(), "Пока только один", Toast.LENGTH_LONG).show();
     }
     
     public void next(View v){
-      Toast.makeText(getApplicationContext(), "Ток патрик пока", Toast.LENGTH_LONG).show();
+    Context context = v.getContext();
+        System.out.println(context.getFilesDir().getAbsoluteFile() + " 1");
+        System.out.println(context.getFilesDir().getPath() + " 2");
+        System.out.println(context.getFilesDir().toString() + " 3");
+        System.out.println(context.getFilesDir().getName() + " 4");
+      Toast.makeText(getApplicationContext(), "Пока только один", Toast.LENGTH_LONG).show();
     }
     
     public void startGame(View v) {
-    nick = nickName.getText().toString();
-    Intent intent = new Intent(this, GameActivity.class);
-startActivity(intent);
-finish();
+        Context context = v.getContext();
+        Saver.setPath(context.getFilesDir().getPath());
+    if(Saver.delete()){
+        nick = nickName.getText().toString();
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    }
+
+    public void startSavedGame(View v) {
+        Context context = v.getContext();
+        Saver.setPath(context.getFilesDir().getPath());
+        //nick = nickName.getText().toString();
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+        finish();
     }
     
     public void emptyTap(View v) {

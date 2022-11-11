@@ -30,6 +30,7 @@ public final class R {
     public static final int previous_button=0x7f030009;
     public static final int settings_button=0x7f03000a;
     public static final int start_game_button=0x7f03000b;
+    public static final int start_saved_game_button=0x7f03000c;
   }
   public static final class layout {
     public static final int activity_game=0x7f040000;

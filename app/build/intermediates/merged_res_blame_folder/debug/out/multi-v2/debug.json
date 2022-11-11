@@ -1,0 +1,64 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.darkpaster.pixellife.app-merged_res-5:/values_values.arsc.flat",
+            "map": [
+                {
+                    "source": "E:\\projects\\Endless-greed\\app\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "1,3,2",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "16,127,65",
+                        "endColumns": "48,53,61",
+                        "endOffsets": "60,176,122"
+                    },
+                    "to": {
+                        "startLines": "14,15,16",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "332,381,435",
+                        "endColumns": "48,53,61",
+                        "endOffsets": "376,430,492"
+                    }
+                },
+                {
+                    "source": "E:\\projects\\Endless-greed\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "54",
+                        "endLines": "6",
+                        "endColumns": "13",
+                        "endOffsets": "228"
+                    },
+                    "to": {
+                        "startLines": "17",
+                        "startColumns": "4",
+                        "startOffsets": "497",
+                        "endLines": "20",
+                        "endColumns": "13",
+                        "endOffsets": "671"
+                    }
+                },
+                {
+                    "source": "E:\\projects\\Endless-greed\\app\\src\\main\\res\\values\\arrays.xml",
+                    "from": {
+                        "startLines": "2,9",
+                        "startColumns": "0,0",
+                        "startOffsets": "51,201",
+                        "endLines": "7,14",
+                        "endColumns": "15,15",
+                        "endOffsets": "198,321"
+                    },
+                    "to": {
+                        "startLines": "2,8",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,207",
+                        "endLines": "7,13",
+                        "endColumns": "15,15",
+                        "endOffsets": "202,327"
+                    }
+                }
+            ]
+        }
+    ]
+}

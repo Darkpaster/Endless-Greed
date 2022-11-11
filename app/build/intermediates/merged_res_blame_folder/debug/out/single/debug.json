@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "com.darkpaster.pixellife.app-merged_res-5:/drawable_ic_launcher.png.flat",
+        "source": "com.darkpaster.pixellife.app-main-7:/drawable/ic_launcher.png"
+    },
+    {
+        "merged": "com.darkpaster.pixellife.app-merged_res-5:/layout_activity_game.xml.flat",
+        "source": "com.darkpaster.pixellife.app-main-7:/layout/activity_game.xml"
+    },
+    {
+        "merged": "com.darkpaster.pixellife.app-merged_res-5:/layout_activity_play.xml.flat",
+        "source": "com.darkpaster.pixellife.app-main-7:/layout/activity_play.xml"
+    },
+    {
+        "merged": "com.darkpaster.pixellife.app-merged_res-5:/drawable_buttons.xml.flat",
+        "source": "com.darkpaster.pixellife.app-main-7:/drawable/buttons.xml"
+    },
+    {
+        "merged": "com.darkpaster.pixellife.app-merged_res-5:/layout_activity_main.xml.flat",
+        "source": "com.darkpaster.pixellife.app-main-7:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.darkpaster.pixellife.app-merged_res-5:/drawable_scaled_art.png.flat",
+        "source": "com.darkpaster.pixellife.app-main-7:/drawable/scaled_art.png"
+    },
+    {
+        "merged": "com.darkpaster.pixellife.app-merged_res-5:/layout_preferences.xml.flat",
+        "source": "com.darkpaster.pixellife.app-main-7:/layout/preferences.xml"
+    }
+]

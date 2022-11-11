@@ -17,7 +17,7 @@ public class Bandit extends Mob{
         this.HT = 20;
         this.DR = 1;
         this.ATK = 3;
-        this.AS = 0.7f;
+        this.AS = 1.0f;
         this.speed = 2.0f;
         this.maxSpeed = 4.0f;
     }

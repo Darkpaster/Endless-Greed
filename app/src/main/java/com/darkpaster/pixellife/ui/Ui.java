@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import com.darkpaster.myLibrary.textures.Sprite;
 import com.darkpaster.myLibrary.textures.TextureAtlas;
+import com.darkpaster.pixellife.Game;
+import com.darkpaster.pixellife.GameActivity;
 import com.darkpaster.pixellife.actors.hero.Hero;
 
 
@@ -24,9 +26,9 @@ paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 infoAtlas = new TextureAtlas(context, "ui_hero_info.png");
 icAtlas = new TextureAtlas(context, "char.png");
 hpAtlas = new TextureAtlas(context, "hp_bar.png");
-heroInfo = new Sprite(paint, infoAtlas.cut(0, 0, 96, 32, 4, false));
-heroIc = new Sprite(paint, icAtlas.cut(2, 0, 14, 7, 10, false));
-paint.setTextSize(40.0f);
+heroInfo = new Sprite(paint, infoAtlas.cut(0, 0, 96, 32, GameActivity.calculatedScale(96), false));
+heroIc = new Sprite(paint, icAtlas.cut(2, 0, 14, 7, GameActivity.calculatedScale(96) * 2, false));
+paint.setTextSize(GameActivity.calculatedScale(96) * 10);
 paint.setTextAlign(Paint.Align.CENTER);
 }
 
@@ -48,15 +50,15 @@ fin = 62.0f;
 if(fin <= 1){
 fin = 1.0f;
 }else{
-hpBar = new Sprite(paint, hpAtlas.cut(0, 0, (int)fin, 14, 4, false));
-hpBar.draw(132.0f, 4.0f, canvas);
+hpBar = new Sprite(paint, hpAtlas.cut(0, 0, (int)fin, 14, GameActivity.calculatedScale(96), false));
+hpBar.draw(34 * GameActivity.calculatedScale(96), 4.0f, canvas);
 }
 String hp1 = String.format("%.1f", hp);
 String ht1 = String.format("%.1f", ht);
 if(ht > 9999){
     paint.setTextSize(30.0f);
 }
-canvas.drawText(hp1 + "/" + ht1, 250.0f, 47.0f, paint);
+canvas.drawText(hp1 + "/" + ht1, GameActivity.calculatedScale(96) * 63, GameActivity.calculatedScale(96) * 12, paint);
 
 //hp: " + Float.toString(hp) + "/" + Float.toString(ht)"
 

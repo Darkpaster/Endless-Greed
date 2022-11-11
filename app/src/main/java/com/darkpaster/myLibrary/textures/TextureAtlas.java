@@ -4,31 +4,36 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import com.darkpaster.pixellife.Game;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 
-public class TextureAtlas implements Serializable {
-  private static final long serialVersionUID = 11L;
+public class TextureAtlas {
 
-  private transient Bitmap bitmap;
-  private transient Bitmap sourse;
-  private transient Bitmap bm;
-  private transient Matrix matrix;
+  private Bitmap bitmap;
+  private Bitmap sourse = null;
+  private Bitmap bm;
+  private Matrix matrix;
   private String png;
-  private transient Context context;
-  private transient InputStream ims;
+  private Context context = null;
+  private InputStream ims;
+  private String file;
 
   private float width;
   private float height;
 
   public TextureAtlas(Context context, String file) {
+    this.file = file;
     this.context = context;
     sourse = loadImageFromAsset(file);
   }
 
   public Bitmap loadImageFromAsset(String file) {
+    if(context == null){
+      context = Game.context_;
+    }
     try {
       ims = context.getAssets().open(file);
       bm = BitmapFactory.decodeStream(ims);
@@ -40,6 +45,9 @@ public class TextureAtlas implements Serializable {
   }
 
   public Bitmap cut(int x, int y, int w, int h) {
+          if(sourse == null){
+            sourse = loadImageFromAsset(file);
+          }
     bitmap = Bitmap.createBitmap(sourse, x, y, w, h);
     return bitmap;
   }

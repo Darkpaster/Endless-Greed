@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="listArray">
+   <item>Number 1</item>
+   <item>Number 2</item>
+   <item>Number 3</item>
+   <item>Number 4</item>
+</string-array>
+    <string-array name="listValues">
+   <item>1</item>
+   <item>2</item>
+   <item>3</item>
+   <item>4</item>
+</string-array>
+    <string name="app_name">Не Придумал</string>
+    <string name="set_preferences">Настройки</string>
+    <string name="title_activity_main">MAIN_ACTIVITY</string>
+    <style name="AppTheme" parent="@android:style/Theme.Black">
+    <item name="android:windowActionBar">false</item>
+<item name="android:windowNoTitle">true</item>
+     </style>
+</resources>

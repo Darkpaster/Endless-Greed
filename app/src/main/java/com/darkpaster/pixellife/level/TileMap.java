@@ -8,6 +8,7 @@ import com.darkpaster.myLibrary.textures.Texture;
 import com.darkpaster.myLibrary.textures.TextureAtlas;
 import com.darkpaster.myLibrary.utils.Physic;
 import com.darkpaster.pixellife.GameActivity;
+import com.darkpaster.pixellife.PlayActivity;
 import com.darkpaster.pixellife.actors.hero.Hero;
 
 import java.util.ArrayList;
@@ -16,13 +17,14 @@ import java.util.Map;
 
 
 public class TileMap {
-private static final int tile_size = Texture.TOTAL_SIZE;
-public static final int tiles_amount_x = 80;
-public static final int tiles_amount_y = 80;
-private static final int size_x = tile_size * tiles_amount_x;
-private static final int size_y = tile_size * tiles_amount_y;
-public static final int WORLD_SIZE_X = size_x;
-public static final int WORLD_SIZE_Y = size_y;
+private static int tile_size = Texture.TOTAL_SIZE;
+public static int tiles_amount_x = 80;
+public static int tiles_amount_y = 80;
+private static int size_x = tile_size * tiles_amount_x;
+private static int size_y = tile_size * tiles_amount_y;
+
+//public static final int WORLD_SIZE_X = size_x;
+//public static final int WORLD_SIZE_Y = size_y;
 
 public static float[][] map_pos_x;
 public static float[][] map_pos_y;
@@ -35,8 +37,9 @@ private Paint paint;
 private Context context;
 private Map<TileType, Bitmap> tileMap;
 private final String sprite_sheet = "tiles.png";
-private int lmao = 0;
-private int radius = (int) GameActivity.screenSizeY / 2 / tile_size;
+//private int lmao = 0;
+private int radiusX = (int) GameActivity.screenSizeX / 2 / tile_size;
+    private int radiusY = (int) GameActivity.screenSizeY / 2 / tile_size;
 
 
 private int[][] map = 
@@ -153,14 +156,26 @@ fillMap();
 }
 
 public void render(Canvas canvas, Hero hero) {
-for (int i = 0; i < tiles_amount_y; i++){
-for (int j = 0; j < tiles_amount_x; j++){
-    if(Physic.distance(tile_size * j, tile_size * i, hero) < (radius + 4) * tile_size) {
-        canvas.drawBitmap(tileMap.get(TileType.getTile(map[i][j])), tile_size * j, tile_size * i, paint);
-    }
+for (int i = (int) hero.getY() / tile_size - radiusY + 2; i < hero.getY() / tile_size + radiusY; i++){
+for (int j = (int) hero.getX() / tile_size - radiusX + 2; j < hero.getX() / tile_size + radiusX; j++){
+//    if(Physic.pDistanceXorY(tile_size * j, hero.getX()) < (radiusX + 2) * tile_size &&
+//            Physic.pDistanceXorY(tile_size * i, hero.getY()) < (radiusY + 3) * tile_size) {
+//        canvas.drawBitmap(tileMap.get(TileType.getTile(map[i][j])), tile_size * j, tile_size * i, paint);
+//    }
+    canvas.drawBitmap(tileMap.get(TileType.getTile(map[i][j])), tile_size * j, tile_size * i, paint);
 }
 }
 }
+
+public void resize(){
+    tile_size = Texture.TOTAL_SIZE;
+    size_x = tiles_amount_x * tile_size;
+    size_y = tiles_amount_y * tile_size;
+
+    radiusX = (int) GameActivity.screenSizeX / 2 / tile_size;
+    radiusY = (int) GameActivity.screenSizeY / 2 / tile_size;
+}
+
 
 private void fillMap() {
 for (int i = 0; i < tiles_amount_y; i++){
